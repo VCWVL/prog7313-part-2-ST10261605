@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddExpenseFragment"
+    android:background="#F6F7F2">
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_border"
+        android:queryHint="Search"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profilephoto_border"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="320dp"
+        tools:layout_editor_absoluteY="2dp" />
+
+    <TextView
+        android:id="@+id/addExpenseHeading"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:text="Add expenses"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="126dp" />
+
+    <TextView
+        android:id="@+id/addExpenseSubHeading"
+        android:layout_width="290dp"
+        android:layout_height="20dp"
+        android:text="Add shopping, rent, groceries and more."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="186dp" />
+
+    <Spinner
+        android:id="@+id/categorySelection"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <EditText
+        android:id="@+id/edtAmount"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Enter amount"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <EditText
+        android:id="@+id/edtDatePicker"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Choose date/time"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="415dp" />
+
+    <TextView
+        android:id="@+id/edtUploadReceipt"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Upload receipt"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="501dp" />
+
+    <Button
+        android:id="@+id/btnUploadReceipt"
+        android:layout_width="132dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#046200"
+        android:hint="Select file"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="496dp" />
+
+    <Button
+        android:id="@+id/btnSaveExpense"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#046200"
+        android:text="Save"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="605dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
