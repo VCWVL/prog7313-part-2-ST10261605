@@ -7,6 +7,24 @@
     tools:context=".AddExpenseFragment"
     android:background="#F6F7F2">
 
+    <EditText
+        android:id="@+id/edtDatePicker2"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Start date"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <EditText
+        android:id="@+id/edtDatePicker3"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="End date"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="508dp" />
+
     <SearchView
         android:id="@+id/searchBar"
         android:layout_width="216dp"
@@ -34,7 +52,7 @@
         android:textColor="@color/black"
         android:textSize="36sp"
         tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="126dp" />
+        tools:layout_editor_absoluteY="98dp" />
 
     <TextView
         android:id="@+id/addExpenseSubHeading"
@@ -43,55 +61,65 @@
         android:text="Add shopping, rent, groceries and more."
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="186dp" />
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="158dp" />
 
     <Spinner
         android:id="@+id/categorySelection"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@drawable/edittext_border_menuitems"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="247dp" />
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="199dp" />
+
 
     <EditText
         android:id="@+id/edtAmount"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Enter amount"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="330dp" />
+        tools:layout_editor_absoluteY="259dp" />
 
     <EditText
         android:id="@+id/edtDatePicker"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Choose date/time"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="415dp" />
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="318dp" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Description"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="375dp" />
 
     <TextView
         android:id="@+id/edtUploadReceipt"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Upload receipt"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="501dp" />
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="564dp" />
 
     <Button
         android:id="@+id/btnUploadReceipt"
         android:layout_width="132dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:backgroundTint="#046200"
         android:hint="Select file"
         android:textColorHint="@color/white"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="496dp" />
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="559dp" />
 
     <Button
         android:id="@+id/btnSaveExpense"
@@ -101,6 +129,6 @@
         android:text="Save"
         android:textSize="20dp"
         tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="605dp" />
+        tools:layout_editor_absoluteY="626dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@
         android:textColor="@color/black"
         android:textSize="36sp"
         tools:layout_editor_absoluteX="113dp"
-        tools:layout_editor_absoluteY="126dp" />
+        tools:layout_editor_absoluteY="96dp" />
 
     <TextView
         android:id="@+id/addMoneySubHeading"
@@ -44,15 +44,15 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="186dp" />
+        tools:layout_editor_absoluteY="165dp" />
 
     <Spinner
         android:id="@+id/categorySelection"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:background="@drawable/edittext_border_menuitems"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="247dp" />
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="213dp" />
 
     <EditText
         android:id="@+id/edtAmount"
@@ -61,7 +61,7 @@
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Enter amount"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="330dp" />
+        tools:layout_editor_absoluteY="280dp" />
 
     <EditText
         android:id="@+id/edtDatePicker"
@@ -69,8 +69,18 @@
         android:layout_height="50dp"
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Choose date/time"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="415dp" />
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="350dp" />
+
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Description"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="420dp" />
 
     <TextView
         android:id="@+id/edtUploadSlip"
@@ -79,8 +89,8 @@
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Upload payslip"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="501dp" />
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="522dp" />
 
     <Button
         android:id="@+id/btnUploadPayslip"
@@ -90,8 +100,8 @@
         android:hint="Select file"
         android:textColorHint="@color/white"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="496dp" />
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="517dp" />
 
     <Button
         android:id="@+id/btnSaveMoney"
