@@ -15,59 +15,80 @@
         android:layout_constraintBottom_toTopOf="@+id/headingTwo"
         android:layout_constraintEnd_toEndOf="parent"
         android:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="31dp"
         android:layout_marginBottom="61dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/headingTwo"
-        app:layout_constraintStart_toEndOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchView" />
 
     <TextView
         android:id="@+id/headingOne"
         android:layout_width="90dp"
         android:layout_height="60dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginBottom="24dp"
         android:text="Hey, "
         android:textColor="@color/white"
         android:textSize="40dp"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="131dp" />
+        app:layout_constraintBottom_toTopOf="@+id/subHeading"
+        app:layout_constraintEnd_toStartOf="@+id/headingTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"/>
 
     <TextView
         android:id="@+id/headingTwo"
         android:layout_width="200dp"
         android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
         android:text="{user}"
         android:textColor="@color/white"
         android:textSize="40dp"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="131dp" />
+        app:layout_constraintBottom_toTopOf="@+id/subHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/headingOne"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/subHeading"
         android:layout_width="330dp"
-        android:layout_height="90dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="61dp"
         android:text="Let's nurture your MoneyTree — what's your next step? 🌱"
         android:textColor="@color/white"
         android:textSize="24dp"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="215dp" />
+        app:layout_constraintBottom_toTopOf="@+id/addMoney"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headingOne" />
 
     <Button
         android:id="@+id/addMoney"
         android:layout_width="75dp"
         android:layout_height="80dp"
+        android:layout_marginTop="39dp"
         android:backgroundTint="#F5BD1E"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="337dp" />
+        app:layout_constraintEnd_toStartOf="@+id/addExpense"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subHeading"
+        />
 
     <Button
         android:id="@+id/addExpense"
         android:layout_width="75dp"
         android:layout_height="80dp"
+
         android:backgroundTint="#F5BD1E"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="337dp" />
+        app:layout_constraintBottom_toTopOf="@+id/addExpenseLabel"
+        app:layout_constraintEnd_toStartOf="@+id/transferMoney"
+        app:layout_constraintStart_toEndOf="@+id/addMoney"
+        app:layout_constraintTop_toBottomOf="@+id/subHeading"
+        app:layout_constraintVertical_bias="0.78" />
 
     <Button
         android:id="@+id/transferMoney"
@@ -81,32 +102,46 @@
         android:id="@+id/addMoneyLabel"
         android:layout_width="90dp"
         android:layout_height="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="58dp"
         android:text="Add money"
         android:textColor="@color/white"
         android:textSize="16dp"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="429dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/addExpenseLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addMoney" />
 
     <TextView
         android:id="@+id/addExpenseLabel"
         android:layout_width="92dp"
         android:layout_height="20dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="58dp"
         android:text="Add expense"
         android:textColor="@color/white"
         android:textSize="16dp"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="429dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/addMoneyLabel" />
 
     <!--note: need to replace with RecyclerView for functionality-->
     <TextView
         android:id="@+id/transferLabel"
         android:layout_width="90dp"
         android:layout_height="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="58dp"
         android:text="Add budget"
         android:textColor="@color/white"
         android:textSize="16dp"
-        tools:layout_editor_absoluteX="283dp"
-        tools:layout_editor_absoluteY="429dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addExpenseLabel"
+        app:layout_constraintTop_toBottomOf="@+id/transferMoney" />
 
     <TextView
         android:id="@+id/textView2"

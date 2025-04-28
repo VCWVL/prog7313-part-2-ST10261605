@@ -5,5 +5,5 @@
         android:width="0.5dp"
         android:color="#000000" /> <!-- Border color -->
     <corners android:radius="20dp"/> <!-- Rounded corners -->
-    <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp"/>
+    <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
 </shape>

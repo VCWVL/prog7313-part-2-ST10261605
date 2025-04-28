@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransactionsFragment"
+    android:background="#F6F7F2">
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_border"
+        android:queryHint="Search"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profilephoto_border"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <TextView
+        android:id="@+id/transactionsHeading"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:text="Transactions"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <TextView
+        android:id="@+id/transactionsSubHeading"
+        android:layout_width="170dp"
+        android:layout_height="20dp"
+        android:text="List of all transactions."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="175dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="225dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

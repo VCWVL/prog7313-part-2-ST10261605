@@ -1,0 +1,101 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Report_Fragment"
+    android:background="#F6F7F2">
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_border"
+        android:queryHint="Search"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profilephoto_border"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <TextView
+        android:id="@+id/reportsPageHeading"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:text="Reports"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="128dp" />
+
+    <TextView
+        android:id="@+id/addMoneySubHeading"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:text="View specific details about your finances."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="194dp" />
+
+    <!-- first CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAllExpenses"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#F5BD1E"
+        app:layout_constraintTop_toBottomOf="@id/addMoneySubHeading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:foreground="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="View list of all expenses during a selectable time period 💸"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- second CardView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCategoryAmounts"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#F5BD1E"
+        app:layout_constraintTop_toBottomOf="@id/cardViewAllExpenses"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:foreground="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="View total amount spent on each category during a selectable time period 📅"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

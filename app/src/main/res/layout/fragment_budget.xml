@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BudgetFragment"
+    android:background="#F6F7F2">
+
+    <EditText
+        android:id="@+id/edtTotalMonthlyGoal2"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Enter budget for category"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="408dp" />
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="216dp"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_border"
+        android:queryHint="Search"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:background="@drawable/profilephoto_border"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="330dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <TextView
+        android:id="@+id/addBudgetHeading"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:text="Add budget"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="113dp"
+        tools:layout_editor_absoluteY="93dp" />
+
+    <TextView
+        android:id="@+id/addMoneySubHeading"
+        android:layout_width="320dp"
+        android:layout_height="20dp"
+        android:text="Add a budget amount for specific categories."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="153dp" />
+
+
+    <Spinner
+        android:id="@+id/categorySelection"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:background="@drawable/edittext_border_menuitems"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="340dp" />
+
+    <EditText
+        android:id="@+id/edtTotalMonthlyGoal"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Enter total monthly goal"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="269dp" />
+
+    <!--instead of picking days, pick months-->
+    <EditText
+        android:id="@+id/edtMonthPicker"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Select budget period 📅"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="201dp" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:background="@drawable/edittext_border_menuitems"
+        android:hint="Description"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="477dp" />
+
+    <Button
+        android:id="@+id/btnSaveMoney"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#046200"
+        android:text="Save"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="605dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

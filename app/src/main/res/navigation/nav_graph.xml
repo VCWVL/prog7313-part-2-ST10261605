@@ -10,9 +10,12 @@
         android:label="Home" />
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.prog7313_part2.ProfileFragment"
-        android:label="Profile" />
+        android:id="@+id/addMoneyFragment"
+        android:name="com.example.prog7313_part2.AddMoneyFragment"
+        android:label="Add Money" />
 
-    <!-- Add more fragments as you like -->
+    <fragment
+        android:id="@+id/addExpenseFragment"
+        android:name="com.example.prog7313_part2.AddExpenseFragment"
+        android:label="Add Expense" />
 </navigation>
