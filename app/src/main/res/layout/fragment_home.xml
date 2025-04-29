@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,11 +14,14 @@
         android:layout_constraintBottom_toTopOf="@+id/headingTwo"
         android:layout_constraintEnd_toEndOf="parent"
         android:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="61dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="62dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/headingTwo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchView" />
+        app:layout_constraintStart_toEndOf="@+id/searchView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/headingOne"
@@ -73,6 +75,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="39dp"
         android:backgroundTint="#F5BD1E"
+        android:text="‎"
         app:layout_constraintEnd_toStartOf="@+id/addExpense"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subHeading"
@@ -82,8 +85,8 @@
         android:id="@+id/addExpense"
         android:layout_width="75dp"
         android:layout_height="80dp"
-
         android:backgroundTint="#F5BD1E"
+        android:text="‎"
         app:layout_constraintBottom_toTopOf="@+id/addExpenseLabel"
         app:layout_constraintEnd_toStartOf="@+id/transferMoney"
         app:layout_constraintStart_toEndOf="@+id/addMoney"
@@ -94,9 +97,12 @@
         android:id="@+id/transferMoney"
         android:layout_width="75dp"
         android:layout_height="80dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="51dp"
         android:backgroundTint="#F5BD1E"
-        tools:layout_editor_absoluteX="285dp"
-        tools:layout_editor_absoluteY="337dp" />
+        android:text="‎"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subHeading" />
 
     <TextView
         android:id="@+id/addMoneyLabel"
@@ -147,13 +153,17 @@
         android:id="@+id/textView2"
         android:layout_width="384dp"
         android:layout_height="131dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="11dp"
         android:backgroundTint="@color/white"
         android:text="Recent transactions"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="507dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addMoneyLabel" />
 
     <SearchView
         android:id="@+id/searchView"
