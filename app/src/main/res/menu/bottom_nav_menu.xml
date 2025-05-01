@@ -1,11 +1,30 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/HomeFragment"
         android:icon="@drawable/home"
         android:title="Home" />
 
     <item
-        android:id="@+id/addMoneyFragment"
-        android:icon="@drawable/home"
+        android:id="@+id/AddMoneyFragment"
+        android:icon="@drawable/addmoney"
         android:title="Add Money" />
+
+    <item
+        android:id="@+id/AddExpenseFragment"
+        android:icon="@drawable/addexpense"
+        android:title="Add Expense" />
+
+    <item
+        android:id="@+id/BudgetFragment"
+        android:icon="@drawable/budget"
+        android:title="Budget" />
+
+    <item
+        android:id="@+id/Report_Fragment"
+        android:icon="@drawable/reports"
+        android:title="Reports" />
 </menu>

@@ -2,20 +2,30 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/HomeFragment"
         android:name="com.example.prog7313_part2.HomeFragment"
         android:label="Home" />
 
     <fragment
-        android:id="@+id/addMoneyFragment"
+        android:id="@+id/AddMoneyFragment"
         android:name="com.example.prog7313_part2.AddMoneyFragment"
         android:label="Add Money" />
 
     <fragment
-        android:id="@+id/addExpenseFragment"
+        android:id="@+id/AddExpenseFragment"
         android:name="com.example.prog7313_part2.AddExpenseFragment"
         android:label="Add Expense" />
+
+    <fragment
+        android:id="@+id/BudgetFragment"
+        android:name="com.example.prog7313_part2.BudgetFragment"
+        android:label="Budget" />
+
+    <fragment
+        android:id="@+id/Report_Fragment"
+        android:name="com.example.prog7313_part2.Report_Fragment"
+        android:label="Reports" />
 </navigation>
