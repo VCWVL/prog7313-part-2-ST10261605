@@ -11,40 +11,56 @@
         android:id="@+id/searchBar"
         android:layout_width="216dp"
         android:layout_height="45dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="78dp"
         android:background="@drawable/edittext_border"
         android:queryHint="Search"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="5dp" />
+        app:layout_constraintBottom_toTopOf="@+id/reportsPageHeading"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="70dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="119dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="330dp"
-        tools:layout_editor_absoluteY="5dp" />
+        app:layout_constraintBottom_toTopOf="@+id/addMoneySubHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/reportsPageHeading"
         android:layout_width="130dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:text="Reports"
         android:textColor="@color/black"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintBottom_toTopOf="@+id/addMoneySubHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
     <TextView
         android:id="@+id/addMoneySubHeading"
         android:layout_width="300dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="20dp"
         android:text="View specific details about your finances."
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="194dp" />
+        app:layout_constraintBottom_toTopOf="@+id/cardViewAllExpenses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportsPageHeading" />
 
     <!-- first CardView -->
     <androidx.cardview.widget.CardView

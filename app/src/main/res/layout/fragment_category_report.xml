@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,49 +12,67 @@
         android:id="@+id/searchBar"
         android:layout_width="216dp"
         android:layout_height="45dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="61dp"
         android:background="@drawable/edittext_border"
         android:queryHint="Search"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="5dp" />
+        app:layout_constraintBottom_toTopOf="@+id/reportsCategoryHeading"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="70dp"
+        android:layout_marginBottom="98dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="330dp"
-        tools:layout_editor_absoluteY="5dp" />
+        app:layout_constraintBottom_toTopOf="@+id/reportsCategorySubHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/reportsCategoryHeading"
         android:layout_width="130dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
         android:text="Reports"
         android:textColor="@color/black"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="111dp" />
+        app:layout_constraintBottom_toTopOf="@+id/reportsCategorySubHeading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
     <TextView
         android:id="@+id/reportsCategorySubHeading"
         android:layout_width="360dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="43dp"
         android:text="Category amounts during selectable time period."
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="173dp" />
+        app:layout_constraintBottom_toTopOf="@+id/edtMonthPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportsCategoryHeading" />
 
     <EditText
         android:id="@+id/edtMonthPicker"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="33dp"
         android:background="@drawable/edittext_border_menuitems"
         android:hint="Select monthly period 📅"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="236dp" />
+        app:layout_constraintBottom_toTopOf="@+id/listOfCategoryDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportsCategorySubHeading" />
 
 
     <!--displaying the month here that the user selects-->
@@ -65,11 +84,14 @@
         android:id="@+id/listOfCategoryDisplay"
         android:layout_width="335dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="28dp"
         android:text="Category and amount spent for time period: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toStartOf="@+id/listOfCategoryDisplay2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMonthPicker" />
 
     <TextView
         android:id="@+id/listOfCategoryDisplay2"
@@ -82,10 +104,14 @@
         tools:layout_editor_absoluteY="319dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="367dp" />
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listOfCategoryDisplay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
