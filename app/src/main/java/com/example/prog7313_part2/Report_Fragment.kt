@@ -33,9 +33,19 @@ class Report_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report_, container, false)
+        val view = inflater.inflate(R.layout.fragment_report_, container, false)
+
+        val cardViewAllExpenses = view.findViewById<View>(R.id.cardViewAllExpenses)
+        cardViewAllExpenses.setOnClickListener {
+            // Replace the current fragment with ExpensesReportFragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, ExpensesReportFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+        return view
     }
+
 
     companion object {
         /**
