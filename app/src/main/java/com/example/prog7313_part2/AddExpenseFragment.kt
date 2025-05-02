@@ -32,7 +32,7 @@ class AddExpenseFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_expense, container, false)
 
-        //fetching income database
+        //fetching expense database
         db = ExpenseDatabase.getDatabase(requireContext())
 
         val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
