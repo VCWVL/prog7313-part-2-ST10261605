@@ -9,6 +9,8 @@ data class Income(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="incomeID")
     val id: Int = 0,
+    @ColumnInfo(name = "userID")
+    val userID: String, //associate each income with a user via userID
     @ColumnInfo(name="category")
     val category: String,
     @ColumnInfo(name="incomeAmount")

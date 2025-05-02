@@ -12,4 +12,7 @@ interface IncomeDao {
 
     @Query("SELECT * FROM income_table")
     fun getAllIncome(): List<Income>
+
+    @Query("SELECT * FROM income_table WHERE userID = :userId")
+    fun getIncomeForUser(userId: String): List<Income>
 }

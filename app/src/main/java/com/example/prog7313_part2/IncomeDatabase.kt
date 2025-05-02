@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Income::class], version = 1)
+@Database(entities = [Income::class], version = 2) //updating version as migrations are made
 abstract class IncomeDatabase : RoomDatabase() {
     abstract fun incomeDao(): IncomeDao
 
@@ -19,7 +19,9 @@ abstract class IncomeDatabase : RoomDatabase() {
                     context.applicationContext,
                     IncomeDatabase::class.java,
                     "income_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() //enabling this because making changes to income data class
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -54,6 +54,11 @@ class Login : AppCompatActivity() {
 
                     //if user exists then display toast message that confirms login then take user to home page
                     if (user != null) {
+
+                        //storing userID in shared preferences so that other fragments/activities can access the userID
+                        val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
+                        sharedPref.edit().putInt("logged_in_user_id", user.id).apply()
+
                         Toast.makeText(this@Login, "Login successful", Toast.LENGTH_SHORT).show()
                         //go to home screen
                         val intent = Intent(this@Login, Home::class.java)

@@ -1,5 +1,6 @@
 package com.example.prog7313_part2
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class AddMoneyFragment : Fragment() {
     private lateinit var edtDatePicker: EditText
     private lateinit var edtDescription: EditText
     private lateinit var btnSave: Button
+    private var userId: Int = -1 //making userId a global variable so that income object can be created with it
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,10 @@ class AddMoneyFragment : Fragment() {
 
         //fetching income database
         db = IncomeDatabase.getDatabase(requireContext())
+
+        //fetching userID from session
+        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        userId = sharedPref.getInt("logged_in_user_id", -1) //assigning to global variable
 
         //setting variable values to user input
         categorySpinner = view.findViewById(R.id.categorySelection)
@@ -81,6 +87,7 @@ class AddMoneyFragment : Fragment() {
             val amount = amountText.toDoubleOrNull() //convert input to double
             if (amount != null) { //if amount is not null then create new income entry
                 val income = Income(
+                    userID = userId.toString(),
                     category = category,
                     amount = amount,
                     date = date,
