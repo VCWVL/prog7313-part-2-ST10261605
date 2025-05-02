@@ -7,32 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/splashScreenHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Splash screen"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/moneyTreeLogo"
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:background="@drawable/moneytreelogo"
+        app:layout_constraintBottom_toTopOf="@+id/btnHome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Just putting this here temporarily for navigation to home-->
     <Button
         android:id="@+id/btnHome"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginBottom="426dp"
-        android:text="Go to home"
-        android:textSize="30sp"
+        android:layout_marginBottom="184dp"
+        android:backgroundTint="#046200"
+        android:text="Get started"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splashScreenHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/moneyTreeLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
