@@ -1,0 +1,19 @@
+package com.example.prog7313_part2
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+
+@Dao
+interface UserDao {
+
+    @Insert
+    fun insertUser(user: User)
+
+    @Query("SELECT * FROM user_table")
+    fun getAllUsers(): List<User>
+
+    @Delete
+    fun delete(user: User)
+}
