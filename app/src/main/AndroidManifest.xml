@@ -16,6 +16,9 @@
             android:name=".Login"
             android:exported="false" />
         <activity
+            android:name=".register"
+            android:exported="false" />
+        <activity
             android:name=".AddExpense"
             android:exported="false" />
         <activity

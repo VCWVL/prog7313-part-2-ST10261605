@@ -38,8 +38,6 @@ android {
 
 dependencies {
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.0") //adding nav fragment and nav UI for navigation bar
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")

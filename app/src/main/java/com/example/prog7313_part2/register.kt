@@ -1,5 +1,6 @@
 package com.example.prog7313_part2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -46,7 +47,8 @@ class register : AppCompatActivity() {
 
                     runOnUiThread {
                         Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show()
-                        finish() // go back to login or main
+                        val intent = Intent(this, Login::class.java)
+                        startActivity(intent)
                     }
                 }
             }
