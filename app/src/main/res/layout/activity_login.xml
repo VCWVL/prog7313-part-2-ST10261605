@@ -71,21 +71,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
+
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="322dp"
+        android:layout_width="190dp"
         android:layout_height="60dp"
-        android:layout_marginStart="29dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="95dp"
+        android:layout_marginEnd="176dp"
         android:layout_marginBottom="128dp"
         android:clickable="true"
-        android:text="Don't have an account? Sign up"
+        android:text="Don't have an account?"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <TextView
+        android:id="@+id/RegisterLink"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="128dp"
+        android:clickable="true"
+        android:text="Register"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.125" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputPassword"
