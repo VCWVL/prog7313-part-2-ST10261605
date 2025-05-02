@@ -37,7 +37,6 @@ class Report_Fragment : Fragment() {
 
         val cardViewAllExpenses = view.findViewById<View>(R.id.cardViewAllExpenses)
         cardViewAllExpenses.setOnClickListener {
-            // Replace the current fragment with ExpensesReportFragment
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, ExpensesReportFragment())
                 .addToBackStack(null)
@@ -46,24 +45,4 @@ class Report_Fragment : Fragment() {
         return view
     }
 
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Report_Fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Report_Fragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
