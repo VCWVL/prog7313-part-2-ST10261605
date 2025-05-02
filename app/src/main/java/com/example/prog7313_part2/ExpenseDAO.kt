@@ -12,4 +12,7 @@ interface ExpenseDAO {
 
     @Query("SELECT * FROM expense_table")
     fun getAllExpense(): List<Expense>
+
+    @Query("SELECT * FROM expense_table WHERE userID = :userId")
+    fun getExpenseForUser(userId: String): List<Expense>
 }
