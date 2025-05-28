@@ -18,5 +18,8 @@ data class Income(
     @ColumnInfo(name="date")
     val date: String,
     @ColumnInfo(name="description")
-    val description: String
+    val description: String,
+    @ColumnInfo(name="document")
+    val fileUri: String? = null  // Store file URI
+
 )

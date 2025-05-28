@@ -1,11 +1,14 @@
 package com.example.prog7313_part2
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -22,6 +25,10 @@ class AddMoneyFragment : Fragment() {
     private lateinit var edtDescription: EditText
     private lateinit var btnSave: Button
     private var userId: Int = -1 //making userId a global variable so that income object can be created with it
+    private lateinit var btnChooseFile: Button
+    private var selectedFileUri: Uri? = null
+    private val FILE_PICKER_REQUEST_CODE = 100
+    private lateinit var txtFileName: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +49,8 @@ class AddMoneyFragment : Fragment() {
         edtDatePicker = view.findViewById(R.id.edtDatePicker)
         edtDescription = view.findViewById(R.id.edtDescription)
         btnSave = view.findViewById(R.id.btnSaveMoney)
+        txtFileName = view.findViewById(R.id.txtFileName)
+
 
         //adding the categories to the spinner (for the user to choose from)
         val categories = listOf("Salary", "Investment", "Allowance", "Part-time", "Bonus", "Other")
@@ -65,6 +74,14 @@ class AddMoneyFragment : Fragment() {
         datePicker.addOnPositiveButtonClickListener { selection ->
             val selectedDate = datePicker.headerText //example: Apr 20, 2025
             edtDatePicker.setText(selectedDate)
+        }
+        //when the user uploads an image
+        btnChooseFile = view.findViewById(R.id.btnChooseFile)
+
+        btnChooseFile.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, FILE_PICKER_REQUEST_CODE)
         }
 
         //upon the user clicking the save button, save their input into income database using function
@@ -91,7 +108,8 @@ class AddMoneyFragment : Fragment() {
                     category = category,
                     amount = amount,
                     date = date,
-                    description = description
+                    description = description,
+                    fileUri = selectedFileUri?.toString()
                 )
 
                 //insert new income entry into database
@@ -112,6 +130,32 @@ class AddMoneyFragment : Fragment() {
             }
         } else { //if amount field is empty, display toast message to let user know
             Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun getFileNameFromUri(uri: Uri): String? {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            val nameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+            if (it.moveToFirst()) {
+                return it.getString(nameIndex)
+            }
+        }
+        return uri.lastPathSegment
+    }
+
+    //Handling choose file function
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            data?.data?.let { uri ->
+                selectedFileUri = uri
+
+                val fileName = getFileNameFromUri(uri)
+                txtFileName.text = fileName ?: "File selected"
+
+                Toast.makeText(requireContext(), "File selected: ${uri.lastPathSegment}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
