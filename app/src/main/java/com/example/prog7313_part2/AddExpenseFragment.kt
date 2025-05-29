@@ -1,11 +1,14 @@
 package com.example.prog7313_part2
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -25,6 +28,10 @@ class AddExpenseFragment : Fragment() {
     private lateinit var edtDescription: EditText
     private lateinit var btnSave: Button
     private var userId: Int = -1 //making userId a global variable so that expense object can be created with it
+    private lateinit var btnUploadReceipt: Button
+    private var selectedFileUri: Uri? = null
+    private val FILE_PICKER_REQUEST_CODE = 100
+    private lateinit var txtFileName: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +53,9 @@ class AddExpenseFragment : Fragment() {
         edtStartDate = view.findViewById(R.id.edtDatePicker2)
         edtEndDate = view.findViewById(R.id.edtDatePicker3)
         btnSave = view.findViewById(R.id.btnSaveExpense)
+        btnUploadReceipt = view.findViewById(R.id.btnUploadReceipt)
+        txtFileName = view.findViewById(R.id.txtFileName)
+
 
         //adding the categories to the spinner (for the user to choose from)
         val categories = listOf("Shopping", "Home", "Education", "Clothing", "Social", "Car", "Food", "Beauty", "Sports", "Transport", "Other")
@@ -98,6 +108,14 @@ class AddExpenseFragment : Fragment() {
             val selectedDate = datePicker3.headerText //example: Apr 20, 2025
             edtEndDate.setText(selectedDate)
         }
+        //when the user uploads an image
+        btnUploadReceipt = view.findViewById(R.id.btnUploadReceipt)
+
+        btnUploadReceipt.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, FILE_PICKER_REQUEST_CODE)
+        }
 
         //upon the user clicking the save button, save their input into expense database using function
         btnSave.setOnClickListener {
@@ -127,7 +145,9 @@ class AddExpenseFragment : Fragment() {
                     date = date,
                     description = description,
                     startDate = startDate,
-                    endDate = endDate
+                    endDate = endDate,
+                    fileUri = selectedFileUri?.toString()
+
                 )
 
                 //insert new expense entry into database
@@ -150,6 +170,36 @@ class AddExpenseFragment : Fragment() {
             }
         } else { //if amount field is empty, display toast message to let user know
             Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getFileNameFromUri(uri: Uri): String? {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            val nameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+            if (it.moveToFirst()) {
+                return it.getString(nameIndex)
+            }
+        }
+        return uri.lastPathSegment
+    }
+    //Handling choose file function
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            data?.data?.let { uri ->
+                selectedFileUri = uri
+
+                val fileName = getFileNameFromUri(uri)
+                txtFileName.text = fileName ?: "File selected"
+
+                Toast.makeText(
+                    requireContext(),
+                    "File selected: ${uri.lastPathSegment}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

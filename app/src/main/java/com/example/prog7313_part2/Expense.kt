@@ -22,5 +22,7 @@ data class Expense(
     @ColumnInfo(name="StartDate")
     val startDate: String,
     @ColumnInfo(name="EndDate")
-    val endDate: String
+    val endDate: String,
+    @ColumnInfo(name="Receipt")
+    val fileUri: String? = null
 )
