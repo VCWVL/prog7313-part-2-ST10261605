@@ -88,9 +88,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="74dp"
         android:layout_marginTop="49dp"
+        android:backgroundTint="#228B22"
         android:text="Add Goal"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--References:
+https://www.geeksforgeeks.org/a-complete-guide-to-learn-xml-for-android-app-development/ ; 17 Oct, 2022; GeeksforGeeks; A Complete Guide to Learn XML For Android App Development
+https://www.geeksforgeeks.org/android-ui-layouts/ ; 24 Feb, 2025; GeeksforGeeks; Android UI Layouts-->
