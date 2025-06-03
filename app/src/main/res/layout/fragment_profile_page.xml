@@ -100,10 +100,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!--References:
-     https://www.codexpedia.com/android/list-of-color-names-and-color-code-for-android/ ; Codexpedia(current)
-     https://www.geeksforgeeks.org/a-complete-guide-to-learn-xml-for-android-app-development/ ; 17 Oct, 2022; GeeksforGeeks; A Complete Guide to Learn XML For Android App Development
-     https://www.geeksforgeeks.org/android-ui-layouts/ ; 24 Feb, 2025; GeeksforGeeks; Android UI Layouts-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--References:
+        https://www.codexpedia.com/android/list-of-color-names-and-color-code-for-android/ ; Codexpedia(current)
+        https://www.geeksforgeeks.org/a-complete-guide-to-learn-xml-for-android-app-development/ ; 17 Oct, 2022; GeeksforGeeks; A Complete Guide to Learn XML For Android App Development
+        https://www.geeksforgeeks.org/android-ui-layouts/ ; 24 Feb, 2025; GeeksforGeeks; Android UI Layouts-->
