@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExpensesReportFragment"
+    tools:context=".ExpensesReportActivity"
     android:background="#F6F7F2">
 
     <SearchView
@@ -13,7 +13,6 @@
         android:layout_width="216dp"
         android:layout_height="45dp"
         android:layout_marginStart="97dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="17dp"
         android:layout_marginBottom="61dp"
         android:background="@drawable/edittext_border"
@@ -79,11 +78,16 @@
         android:id="@+id/listOfExpensesDisplay"
         android:layout_width="335dp"
         android:layout_height="20dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="8dp"
         android:text="List of expenses for time period: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listOfExpensesDisplay2" />
 
     <!--displaying the month here that the user selects-->
     <TextView

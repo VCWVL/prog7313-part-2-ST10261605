@@ -23,12 +23,12 @@
         <activity
             android:name=".register"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".AddExpense"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".AddMoney"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".ExpensesReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryReportActivity"
+            android:exported="false" />
         <activity
             android:name=".Home"
             android:exported="false" />
