@@ -15,4 +15,13 @@ interface ExpenseDAO {
 
     @Query("SELECT * FROM expense_table WHERE userID = :userId")
     fun getExpenseForUser(userId: String): List<Expense>
+
+    @Query("""
+    SELECT category, SUM(expenseAmount) AS totalAmount 
+    FROM expense_table 
+    WHERE userID = :userId AND date LIKE :monthPattern
+    GROUP BY category
+""")
+
+    fun getCategoryAmountForMonth(userId: Int, monthPattern: String): List<CategoryAmount>
 }
