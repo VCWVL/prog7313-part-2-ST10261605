@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import kotlin.math.exp
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +26,8 @@ class TransactionsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +45,55 @@ class TransactionsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_transactions, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.transactionsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        //Get the databases
+        val incomeDatabase = IncomeDatabase.getDatabase(requireContext())
+        val expenseDatabase = ExpenseDatabase.getDatabase(requireContext())
+
+        //Get the data
+        val incomeList = incomeDatabase.incomeDao().getAllIncome()
+        val expenseList = expenseDatabase.expenseDao().getAllExpense()
+
+        //Map to transactions
+        val incomeTransaction = incomeList.map { income ->
+            Transaction(
+                id = income.id.toString(),
+                amount = income.amount,
+                date = parseDate(income.date),
+                category = income.category,
+                type = TransactionType.INCOME
+            )
+        }
+        val expenseTransaction = expenseList.map { expense ->
+            Transaction(
+                id = expense.id.toString(),
+                amount = expense.amount,
+                date = parseDate (expense.date),
+                category = expense.category,
+                type = TransactionType.EXPENSE
+            )
+        }
+
+        //Combine and sort
+        val allTransactions =(incomeTransaction + expenseTransaction)
+            .sortedByDescending{it.date}
+
+        recyclerView.adapter = TransactionsAdapter(allTransactions)
+    }
+    //function to parse String date to data object
+    private fun parseDate(dateString: String): Date {
+        return try {
+            dateFormatter.parse(dateString) ?: Date()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Date()
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
