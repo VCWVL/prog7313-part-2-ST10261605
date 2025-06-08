@@ -23,5 +23,5 @@ interface ExpenseDAO {
     GROUP BY category
 """)
 
-    fun getCategoryAmountForMonth(userId: Int, monthPattern: String): List<CategoryAmount>
+    fun getCategoryAmountForMonth(userId: String, monthPattern: String): List<CategoryAmount>
 }

@@ -41,20 +41,17 @@ class CategoryReportActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(this,
             { _, year, month, _ ->
 
-                val monthNames = arrayOf(
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
-                )
-
-                val selectedMonthName = monthNames[month]
+                val monthShortName = getMonthShortName(month) // Correct 3-letter month name
                 val selectedYear = year.toString()
 
-                // Update EditText
-                edtMonthPicker.setText("$selectedMonthName $selectedYear")
+                // For display in EditText → can show as 06/2025
+                val selectedMonthDisplay = String.format("%02d", month + 1)
+                edtMonthPicker.setText("$selectedMonthDisplay/$selectedYear")
 
-                // Now load data for this month
-                val monthYearPattern = "$selectedMonthName%, $selectedYear%"
+                // Correct pattern for LIKE query:
+                val monthYearPattern = "$monthShortName%, $selectedYear%"
 
+                // Load data
                 loadCategoryData(monthYearPattern)
 
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
@@ -63,6 +60,14 @@ class CategoryReportActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    // Helper function to map month number → "Jan", "Feb", etc.
+    private fun getMonthShortName(month: Int): String {
+        val monthNames = arrayOf(
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        )
+        return monthNames[month]
+    }
 
     private fun loadCategoryData(monthPattern: String) {
         val expenseDao = ExpenseDatabase.getDatabase(this).expenseDao()
@@ -78,25 +83,15 @@ class CategoryReportActivity : AppCompatActivity() {
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId, monthPattern)
+            val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId.toString(), monthPattern)
 
             withContext(Dispatchers.Main) {
-                categoryAdapter.updateData(categoryAmountList)
-
-                //Show toast if no result
+                // If no data, you can show a toast (optional)
                 if (categoryAmountList.isEmpty()) {
-                    Toast.makeText(
-                        this@CategoryReportActivity,
-                        "No data for selected month",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@CategoryReportActivity, "No data for this selected time period", Toast.LENGTH_SHORT).show()
                 }
+                categoryAdapter.updateData(categoryAmountList)
             }
         }
-    }
-    private fun getMonthName(month: Int): String {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, month)
-        return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) ?: ""
     }
 }
