@@ -12,9 +12,9 @@
         android:id="@+id/searchBar"
         android:layout_width="216dp"
         android:layout_height="45dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/edittext_border"
         android:queryHint="Search"
         android:textAlignment="center"
@@ -27,96 +27,76 @@
         android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="97dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/reportsExpenseSubHeading"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartPeriod"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/reportsExpenseHeading"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="35dp"
         android:text="Reports"
         android:textColor="@color/black"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/reportsExpenseSubHeading"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartPeriod"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
-    <TextView
-        android:id="@+id/reportsExpenseSubHeading"
-        android:layout_width="335dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="44dp"
-        android:text="List of expenses during selectable time period."
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtMonthPicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reportsExpenseHeading" />
+    <!--displaying the month here that the user selects-->
 
-    <EditText
-        android:id="@+id/edtMonthPicker"
+    <!--custom recycle view for user to be able to download any receipts
+    that they uploaded when adding an expense-->
+
+    <Button
+        android:id="@+id/btnStartPeriod"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="33dp"
-        android:background="@drawable/edittext_border_menuitems"
-        android:hint="Select monthly period 📅"
-        app:layout_constraintBottom_toTopOf="@+id/listOfExpensesDisplay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reportsExpenseSubHeading" />
+        android:backgroundTint="@color/white"
+        android:hint="Select start period 📅"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="174dp" />
 
+    <Button
+        android:id="@+id/btnEndPeriod"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/white"
+        android:hint="Select end period 📅"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="250dp" />
+
+    <Button
+        android:id="@+id/btnSearchExpenses"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#046200"
+        android:text="Search"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="329dp" />
 
     <TextView
         android:id="@+id/listOfExpensesDisplay"
         android:layout_width="335dp"
         android:layout_height="20dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="8dp"
         android:text="List of expenses for time period: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listOfExpensesDisplay2" />
-
-    <!--displaying the month here that the user selects-->
-    <TextView
-        android:id="@+id/listOfExpensesDisplay2"
-        android:layout_width="335dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="28dp"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMonthPicker" />
-
-    <!--custom recycle view for user to be able to download any receipts
-    that they uploaded when adding an expense-->
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="414dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="84dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listOfExpensesDisplay" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="445dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

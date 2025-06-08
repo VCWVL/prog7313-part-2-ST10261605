@@ -1,5 +1,6 @@
 package com.example.prog7313_part2
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -15,6 +16,9 @@ interface ExpenseDAO {
 
     @Query("SELECT * FROM expense_table WHERE userID = :userId")
     fun getExpenseForUser(userId: String): List<Expense>
+
+    @Query("SELECT * FROM expense_table WHERE date BETWEEN :startDate AND :endDate ORDER BY date ASC")
+    fun getExpensesBetweenDates(startDate: String, endDate: String): LiveData<List<Expense>>
 
     @Query("""
     SELECT category, SUM(expenseAmount) AS totalAmount 

@@ -41,9 +41,14 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.recyclerview:recyclerview:1.3.1")
+
 
     //roomDb components
     implementation ("androidx.room:room-runtime:2.5.2")
+    implementation(libs.androidx.lifecycle.viewmodel.android)
 
     //adding kapt for roomDb
     kapt ("androidx.room:room-compiler:2.5.2")
