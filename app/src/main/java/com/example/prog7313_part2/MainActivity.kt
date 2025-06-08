@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
         val button = findViewById<Button>(R.id.btnHome)
         button.setOnClickListener {
             val intent = Intent(this, register::class.java)

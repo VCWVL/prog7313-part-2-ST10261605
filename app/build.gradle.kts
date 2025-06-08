@@ -57,8 +57,6 @@ dependencies {
 //    implementation ("androidx.room:room-ktx:2.5.2")
 
     implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.fragment.ktx)
 //    implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
 
@@ -75,5 +73,8 @@ dependencies {
 
     // For pie chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
 
 }
