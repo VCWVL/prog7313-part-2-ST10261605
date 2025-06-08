@@ -2,26 +2,23 @@ package com.example.prog7313_part2
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import java.util.concurrent.Executors
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class register : AppCompatActivity() {
 
-    private lateinit var db: AppDatabase
-    private val executorService = Executors.newSingleThreadExecutor()
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        //initializing DB
-        db = AppDatabase.getDatabase(this)
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
-        //fetching input values
         val nameField = findViewById<EditText>(R.id.name)
         val surnameField = findViewById<EditText>(R.id.surname)
         val emailField = findViewById<EditText>(R.id.email)
@@ -30,8 +27,7 @@ class register : AppCompatActivity() {
         val loginLink = findViewById<TextView>(R.id.LoginLink)
 
         loginLink.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Login::class.java))
         }
 
         registerButton.setOnClickListener {
@@ -40,28 +36,31 @@ class register : AppCompatActivity() {
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
 
-            //if any of the fields are empty, display toast message letting user know
             if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else { //if not, creating a new user
-                val newUser = User(
-                    firstName = name,
-                    surname = surname,
-                    email = email,
-                    password = password
-                )
+                return@setOnClickListener
+            }
 
-                executorService.execute {
-                    db.userDao().insertUser(newUser)
+            // Register with Firebase Auth
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
+                        val user = User(name, surname, email)
 
-                    //ensuring it is not running on main thread, displaying toast if register successful then taking user to login page
-                    runOnUiThread {
-                        Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
+                        db.collection("users").document(userId).set(user)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, Login::class.java))
+                                finish()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Error saving user: ${it.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
         }
     }
 }

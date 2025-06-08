@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddMoneyFragment : Fragment() {
 
     //declaring variables
-    private lateinit var db: IncomeDatabase
     private lateinit var categorySpinner: Spinner
     private lateinit var edtAmount: EditText
     private lateinit var edtDatePicker: EditText
@@ -35,9 +35,6 @@ class AddMoneyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_money, container, false)
-
-        //fetching income database
-        db = IncomeDatabase.getDatabase(requireContext())
 
         //fetching userID from session
         val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
@@ -113,17 +110,21 @@ class AddMoneyFragment : Fragment() {
                 )
 
                 //insert new income entry into database
-                lifecycleScope.launch(Dispatchers.IO) {
-                    db.incomeDao().insertIncome(income)
-                }
+                val db = FirebaseFirestore.getInstance()
+                val incomeId = db.collection("incomes").document().id //auto-generate ID
+                db.collection("incomes").document(incomeId).set(income)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Income saved successfully", Toast.LENGTH_SHORT).show()
 
-                //display toast message to let user know it was saved successfully
-                Toast.makeText(requireContext(), "Income saved successfully", Toast.LENGTH_SHORT).show()
-
-                //clearing input fields
-                edtAmount.text.clear()
-                edtDatePicker.text.clear()
-                edtDescription.text.clear()
+                        // Clear input fields
+                        edtAmount.text.clear()
+                        edtDatePicker.text.clear()
+                        edtDescription.text.clear()
+                        txtFileName.text = ""
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(requireContext(), "Error saving income: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
 
             } else { //if amount is null, display toast message to let user know
                 Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()

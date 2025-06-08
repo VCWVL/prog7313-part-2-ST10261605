@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,17 +45,22 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation ("androidx.recyclerview:recyclerview:1.3.1")
+    //firebase
+    //code attribute:
+    //https://firebase.google.com/docs/android/setup (accessed: 8 June 2025)
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
 
+//    //roomDb components
+//    implementation ("androidx.room:room-runtime:2.5.2")
+//    //adding kapt for roomDb
+//    kapt ("androidx.room:room-compiler:2.5.2")
+//    implementation ("androidx.room:room-ktx:2.5.2")
 
-    //roomDb components
-    implementation ("androidx.room:room-runtime:2.5.2")
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
-
-    //adding kapt for roomDb
-    kapt ("androidx.room:room-compiler:2.5.2")
-    implementation ("androidx.room:room-ktx:2.5.2")
+//    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -62,6 +68,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

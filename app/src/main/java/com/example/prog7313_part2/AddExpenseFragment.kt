@@ -14,12 +14,15 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.exp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.util.*
+
 
 class AddExpenseFragment : Fragment() {
 
     //declaring variables
-    private lateinit var db: ExpenseDatabase
     private lateinit var categorySpinner: Spinner
     private lateinit var edtAmount: EditText
     private lateinit var edtDatePicker: EditText //date of expense
@@ -33,14 +36,21 @@ class AddExpenseFragment : Fragment() {
     private val FILE_PICKER_REQUEST_CODE = 100
     private lateinit var txtFileName: TextView
 
+    //variables for firebase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_expense, container, false)
 
-        //fetching expense database
-        db = ExpenseDatabase.getDatabase(requireContext())
+        //initializing firebase
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        storage = FirebaseStorage.getInstance()
 
         val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
         val userId = sharedPref.getInt("logged_in_user_id", -1)
@@ -126,7 +136,6 @@ class AddExpenseFragment : Fragment() {
 
     //function for saving user input into database
     private fun saveExpenseData() {
-        //declaring variables
         val category = categorySpinner.selectedItem?.toString() ?: "Other"
         val amountText = edtAmount.text.toString()
         val date = edtDatePicker.text.toString()
@@ -134,44 +143,80 @@ class AddExpenseFragment : Fragment() {
         val startDate = edtStartDate.text.toString()
         val endDate = edtEndDate.text.toString()
 
-        //if the amount text input field is not empty then
-        if (amountText.isNotEmpty()) {
-            val amount = amountText.toDoubleOrNull() //convert input to double
-            if (amount != null) { //if amount is not null then create new income entry
-                val expense = Expense(
-                    userID = userId.toString(),
-                    category = category,
-                    amount = amount,
-                    date = date,
-                    description = description,
-                    startDate = startDate,
-                    endDate = endDate,
-                    fileUri = selectedFileUri?.toString()
-
-                )
-
-                //insert new expense entry into database
-                lifecycleScope.launch(Dispatchers.IO) {
-                    db.expenseDao().insertExpense(expense)
-                }
-
-                //display toast message to let user know it was saved successfully
-                Toast.makeText(requireContext(), "Expense saved successfully", Toast.LENGTH_SHORT).show()
-
-                //clearing input fields
-                edtAmount.text.clear()
-                edtDatePicker.text.clear()
-                edtDescription.text.clear()
-                edtStartDate.text.clear()
-                edtEndDate.text.clear()
-
-            } else { //if amount is null, display toast message to let user know
-                Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
-            }
-        } else { //if amount field is empty, display toast message to let user know
+        if (amountText.isEmpty()) {
             Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val amount = amountText.toDoubleOrNull()
+        if (amount == null) {
+            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Generate document ID
+        val expenseId = firestore.collection("expenses").document().id
+
+        fun uploadData(receiptUrl: String?) {
+            val expense = Expense(
+                id = expenseId,
+                userID = currentUser.uid,
+                category = category,
+                amount = amount,
+                date = date,
+                description = description,
+                startDate = startDate,
+                endDate = endDate,
+                fileUri = receiptUrl
+            )
+
+            firestore.collection("expenses").document(expenseId).set(expense)
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Expense saved to Firebase", Toast.LENGTH_SHORT).show()
+                    clearFields()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to save expense", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        // Upload receipt if selected
+        if (selectedFileUri != null) {
+            val ref = storage.reference.child("receipts/${UUID.randomUUID()}")
+            ref.putFile(selectedFileUri!!)
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) throw task.exception!!
+                    ref.downloadUrl
+                }
+                .addOnSuccessListener { uri ->
+                    uploadData(uri.toString())
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Receipt upload failed", Toast.LENGTH_SHORT).show()
+                    uploadData(null)
+                }
+        } else {
+            uploadData(null)
         }
     }
+
+    //function to clear all fields
+    private fun clearFields() {
+        edtAmount.text.clear()
+        edtDatePicker.text.clear()
+        edtDescription.text.clear()
+        edtStartDate.text.clear()
+        edtEndDate.text.clear()
+        selectedFileUri = null
+        txtFileName.text = ""
+    }
+
 
     private fun getFileNameFromUri(uri: Uri): String? {
         val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
