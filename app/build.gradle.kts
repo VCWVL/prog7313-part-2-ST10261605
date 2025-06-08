@@ -49,6 +49,8 @@ dependencies {
     //roomDb components
     implementation ("androidx.room:room-runtime:2.5.2")
     implementation(libs.androidx.lifecycle.viewmodel.android)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.fragment.ktx)
 
     //adding kapt for roomDb
     kapt ("androidx.room:room-compiler:2.5.2")
@@ -63,5 +65,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // For pie chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 }
