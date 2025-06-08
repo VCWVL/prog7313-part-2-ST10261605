@@ -107,7 +107,7 @@ class BudgetFragment : Fragment() {
             val maxAmount = maximumGoal.toDouble()
 
             // Generate document ID
-            val expenseId = firestore.collection("budgets").document().id
+            val budgetId = firestore.collection("budgets").document().id
 
             if (amount != null) { //if amount is not null then create new budget entry
                 val budget = Budget(
@@ -120,7 +120,7 @@ class BudgetFragment : Fragment() {
                     description = description
                 )
 
-                firestore.collection("budgets").document(expenseId).set(budget)
+                firestore.collection("budgets").document(budgetId).set(budget)
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Budget saved to Firebase", Toast.LENGTH_SHORT).show()
                         clearFields()

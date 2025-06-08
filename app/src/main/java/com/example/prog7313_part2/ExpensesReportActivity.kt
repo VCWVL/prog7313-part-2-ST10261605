@@ -1,27 +1,27 @@
 package com.example.prog7313_part2
-//
-//import android.app.DatePickerDialog
-//import android.os.Bundle
-//import android.widget.Button
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.lifecycle.ViewModelProvider
-//import androidx.recyclerview.widget.LinearLayoutManager
-//import androidx.recyclerview.widget.RecyclerView
-//import java.text.SimpleDateFormat
-//import java.util.Calendar
-//import java.util.Locale
-//
-//private lateinit var viewModel: ExpenseViewModel
-//private lateinit var recyclerView: RecyclerView
-//private lateinit var adapter: ExpenseAdapter
-//
-//private var selectedStartDate: String? = null
-//private var selectedEndDate: String? = null
-//private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//
-//
-//class ExpensesReportActivity : AppCompatActivity() {
+
+import android.app.DatePickerDialog
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
+private lateinit var viewModel: ExpenseViewModel
+private lateinit var recyclerView: RecyclerView
+private lateinit var adapter: ExpenseAdapter
+
+private var selectedStartDate: String? = null
+private var selectedEndDate: String? = null
+private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+
+class ExpensesReportActivity : AppCompatActivity() {
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_expenses_report)
@@ -74,6 +74,6 @@ package com.example.prog7313_part2
 //
 //        datePicker.show()
 //    }
-//}
-//
-//
+}
+
+

@@ -1,8 +1,8 @@
 package com.example.prog7313_part2
-//
-//import androidx.lifecycle.LiveData
-//
-//class ExpenseRepository(private val expenseDao: ExpenseDAO) {
+
+import androidx.lifecycle.LiveData
+
+class ExpenseRepository() {
 //
 //    fun insertExpense(expense: Expense) {
 //        expenseDao.insertExpense(expense)
@@ -19,4 +19,4 @@ package com.example.prog7313_part2
 //    fun getExpensesBetweenDates(startDate: String, endDate: String): LiveData<List<Expense>> {
 //        return expenseDao.getExpensesBetweenDates(startDate, endDate)
 //    }
-//}
+}

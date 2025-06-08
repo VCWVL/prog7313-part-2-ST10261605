@@ -1,19 +1,19 @@
 package com.example.prog7313_part2
-//
-//import android.app.DatePickerDialog
-//import android.os.Bundle
-//import android.widget.EditText
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.recyclerview.widget.LinearLayoutManager
-//import androidx.recyclerview.widget.RecyclerView
-//import kotlinx.coroutines.CoroutineScope
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.launch
-//import kotlinx.coroutines.withContext
-//import java.util.*
-//
-//class CategoryReportActivity : AppCompatActivity() {
+
+import android.app.DatePickerDialog
+import android.os.Bundle
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
+
+class CategoryReportActivity : AppCompatActivity() {
 //
 //    private lateinit var edtMonthPicker: EditText
 //    private lateinit var recyclerView: RecyclerView
@@ -69,43 +69,43 @@ package com.example.prog7313_part2
 //        return monthNames[month]
 //    }
 //
-//    private fun loadCategoryData(monthPattern: String) {
-//        val expenseDao = ExpenseDatabase.getDatabase(this).expenseDao()
+////    private fun loadCategoryData(monthPattern: String) {
+////        val expenseDao = ExpenseDatabase.getDatabase(this).expenseDao()
+////
+////        // Read logged in user id from SharedPreferences
+////        val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
+////        val userId =
+////            sharedPref.getString("logged_in_user_id", null)  // default -1 means no user saved
+////
+////        if (userId == null) {
+////            // No logged in user found, handle error or redirect to login
+////            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+////            return
+////        }
 //
-//        // Read logged in user id from SharedPreferences
-//        val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
-//        val userId =
-//            sharedPref.getString("logged_in_user_id", null)  // default -1 means no user saved
-//
-//        if (userId == null) {
-//            // No logged in user found, handle error or redirect to login
-//            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId, monthPattern)
-//
-//                withContext(Dispatchers.Main) {
-//                    if (categoryAmountList.isEmpty()) {
-//                        Toast.makeText(
-//                            this@CategoryReportActivity,
-//                            "No data for this selected time period",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                    categoryAdapter.updateData(categoryAmountList)
-//                }
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(
-//                        this@CategoryReportActivity,
-//                        "Error loading data: ${e.message}",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            }
-//        }
+////        CoroutineScope(Dispatchers.IO).launch {
+////            try {
+////                val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId, monthPattern)
+////
+////                withContext(Dispatchers.Main) {
+////                    if (categoryAmountList.isEmpty()) {
+////                        Toast.makeText(
+////                            this@CategoryReportActivity,
+////                            "No data for this selected time period",
+////                            Toast.LENGTH_SHORT
+////                        ).show()
+////                    }
+////                    categoryAdapter.updateData(categoryAmountList)
+////                }
+////            } catch (e: Exception) {
+////                withContext(Dispatchers.Main) {
+////                    Toast.makeText(
+////                        this@CategoryReportActivity,
+////                        "Error loading data: ${e.message}",
+////                        Toast.LENGTH_LONG
+////                    ).show()
+////                }
+////            }
+////        }
 //    }
-//}
+}

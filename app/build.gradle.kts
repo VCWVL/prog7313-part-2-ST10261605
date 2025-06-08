@@ -50,6 +50,11 @@ dependencies {
     //https://firebase.google.com/docs/android/setup (accessed: 8 June 2025)
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
 
+    // For pie chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
 //    //roomDb components
 //    implementation ("androidx.room:room-runtime:2.5.2")
 //    //adding kapt for roomDb
@@ -70,11 +75,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // For pie chart
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
 
 }

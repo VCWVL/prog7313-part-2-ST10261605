@@ -1,13 +1,13 @@
 package com.example.prog7313_part2
-//
-//import android.content.Intent
-//import android.os.Bundle
-//import androidx.fragment.app.Fragment
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//
-//class Report_Fragment : Fragment() {
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+class Report_Fragment : Fragment() {
 //    override fun onCreateView(
 //        inflater: LayoutInflater, container: ViewGroup?,
 //        savedInstanceState: Bundle?
@@ -29,4 +29,4 @@ package com.example.prog7313_part2
 //        }
 //        return view
 //    }
-//}
+}

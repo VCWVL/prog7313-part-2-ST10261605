@@ -1,13 +1,13 @@
 package com.example.prog7313_part2
-//
-//import android.app.Application
-//import androidx.lifecycle.AndroidViewModel
-//import androidx.lifecycle.LiveData
-//import androidx.lifecycle.viewModelScope
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.launch
-//
-//class ExpenseViewModel(application: Application) : AndroidViewModel(application) {
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class ExpenseViewModel(application: Application) : AndroidViewModel(application) {
 //
 //    private val repository: ExpenseRepository
 //
@@ -42,4 +42,4 @@ package com.example.prog7313_part2
 //    fun getCategoryAmountForMonth(userId: Int, monthPattern: String): List<CategoryAmount> {
 //        return repository.getCategoryAmountForMonth(userId, monthPattern)
 //    }
-//}
+}
