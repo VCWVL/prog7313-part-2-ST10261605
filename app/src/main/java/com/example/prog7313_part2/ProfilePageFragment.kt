@@ -1,10 +1,14 @@
 package com.example.prog7313_part2
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import kotlin.jvm.java
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +40,30 @@ class ProfilePageFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile_page, container, false)
     }
+
+    override fun onViewCreated(view:View,savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view,savedInstanceState)
+
+        val logoutbtn: Button = view.findViewById(R.id.Logoutbtn)
+
+        logoutbtn.setOnClickListener {
+            logout()
+
+        }
+    }
+
+    private fun logout() {
+        // Example: Clear user session (if using SharedPreferences)
+        val sharedPreferences = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+
+        // Navigate to LoginActivity (replace LoginActivity with your actual login activity)
+        val intent = Intent(requireActivity(), Login::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
 
     companion object {
         /**

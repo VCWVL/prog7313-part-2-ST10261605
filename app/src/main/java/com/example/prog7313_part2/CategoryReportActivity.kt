@@ -74,23 +74,37 @@ class CategoryReportActivity : AppCompatActivity() {
 
         // Read logged in user id from SharedPreferences
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
-        val userId = sharedPref.getInt("logged_in_user_id", -1)  // default -1 means no user saved
+        val userId =
+            sharedPref.getString("logged_in_user_id", null)  // default -1 means no user saved
 
-        if (userId == -1) {
+        if (userId == null) {
             // No logged in user found, handle error or redirect to login
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             return
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId.toString(), monthPattern)
+            try {
+                val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId, monthPattern)
 
-            withContext(Dispatchers.Main) {
-                // If no data, you can show a toast (optional)
-                if (categoryAmountList.isEmpty()) {
-                    Toast.makeText(this@CategoryReportActivity, "No data for this selected time period", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    if (categoryAmountList.isEmpty()) {
+                        Toast.makeText(
+                            this@CategoryReportActivity,
+                            "No data for this selected time period",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    categoryAdapter.updateData(categoryAmountList)
                 }
-                categoryAdapter.updateData(categoryAmountList)
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@CategoryReportActivity,
+                        "Error loading data: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }

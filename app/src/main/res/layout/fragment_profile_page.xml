@@ -72,11 +72,11 @@
         android:layout_marginEnd="48dp"
         android:text="Export Worksheets"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintEnd_toStartOf="@+id/Exportbtn"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/Exportbtn"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="155dp"
         android:layout_height="55dp"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/Logoutbtn"
         android:layout_width="208dp"
         android:layout_height="59dp"
         android:layout_marginStart="101dp"
