@@ -20,7 +20,5 @@ class ExpenseRepository(private val expenseDao: ExpenseDAO) {
         return expenseDao.getExpensesBetweenDates(startDate, endDate)
     }
 
-    fun getCategoryAmountForMonth(userId: Int, monthPattern: String): List<CategoryAmount> {
-        return expenseDao.getCategoryAmountForMonth(userId, monthPattern)
-    }
+
 }
