@@ -36,10 +36,6 @@ class AddMoneyFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_money, container, false)
 
-        //fetching userID from session
-        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
-        userId = sharedPref.getInt("logged_in_user_id", -1) //assigning to global variable
-
         //setting variable values to user input
         categorySpinner = view.findViewById(R.id.categorySelection)
         edtAmount = view.findViewById(R.id.edtAmount)
@@ -90,18 +86,24 @@ class AddMoneyFragment : Fragment() {
 
     //function for saving user input into database
     private fun saveIncomeData() {
-        //declaring variables
         val category = categorySpinner.selectedItem?.toString() ?: "Other"
         val amountText = edtAmount.text.toString()
         val date = edtDatePicker.text.toString()
         val description = edtDescription.text.toString()
 
-        //if the amount text input field is not empty then
+        //Firebase authentication check
+        val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+        val userUid = currentUser?.uid
+        if (userUid == null) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         if (amountText.isNotEmpty()) {
-            val amount = amountText.toDoubleOrNull() //convert input to double
-            if (amount != null) { //if amount is not null then create new income entry
+            val amount = amountText.toDoubleOrNull()
+            if (amount != null) {
                 val income = Income(
-                    userID = userId.toString(),
+                    userID = userUid, //Firebase UID
                     category = category,
                     amount = amount,
                     date = date,
@@ -109,14 +111,11 @@ class AddMoneyFragment : Fragment() {
                     fileUri = selectedFileUri?.toString()
                 )
 
-                //insert new income entry into database
-                val db = FirebaseFirestore.getInstance()
-                val incomeId = db.collection("incomes").document().id //auto-generate ID
+                val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                val incomeId = db.collection("incomes").document().id
                 db.collection("incomes").document(incomeId).set(income)
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Income saved successfully", Toast.LENGTH_SHORT).show()
-
-                        // Clear input fields
                         edtAmount.text.clear()
                         edtDatePicker.text.clear()
                         edtDescription.text.clear()
@@ -125,14 +124,14 @@ class AddMoneyFragment : Fragment() {
                     .addOnFailureListener { e ->
                         Toast.makeText(requireContext(), "Error saving income: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
-
-            } else { //if amount is null, display toast message to let user know
+            } else {
                 Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
             }
-        } else { //if amount field is empty, display toast message to let user know
+        } else {
             Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun getFileNameFromUri(uri: Uri): String? {
         val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
         cursor?.use {

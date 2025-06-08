@@ -25,7 +25,7 @@ class BudgetFragment : Fragment() {
     private lateinit var edtMaxAmount: EditText
     private lateinit var edtDescription: EditText
     private lateinit var btnSave: Button
-    private var userId: Int = -1 //making userId a global variable so that budget object can be created with it
+//    private var userId: Int = -1 //making userId a global variable so that budget object can be created with it
 
     //variables for firebase
     private lateinit var auth: FirebaseAuth
@@ -43,8 +43,8 @@ class BudgetFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
 
-        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
-        val userId = sharedPref.getInt("logged_in_user_id", -1)
+//        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+////        val userId = sharedPref.getInt("logged_in_user_id", -1)
 
         //setting variable values to user input
 
@@ -83,69 +83,69 @@ class BudgetFragment : Fragment() {
 
         //upon the user clicking the save button, save their input into expense database using function
         btnSave.setOnClickListener {
-            saveBudgetData()
+//            saveBudgetData()
         }
         return view
     }
 
-    //function for saving user input into database
-    private fun saveBudgetData() {
-        //declaring variables
-
-        val timePeriod = budgetPeriod.text.toString()
-        val amountText = edtTotalAmount.text.toString()
-        val category = categorySpinner.selectedItem?.toString() ?: "Other"
-        val minimumGoal = edtMinAmount.text.toString()
-        val maximumGoal = edtMaxAmount.text.toString()
-        val description = edtDescription.text.toString()
-
-
-        //if the time period input field is not empty then
-        if (timePeriod.isNotEmpty()) {
-            val amount = amountText.toDoubleOrNull() //convert input to double
-            val minAmount = minimumGoal.toDouble()
-            val maxAmount = maximumGoal.toDouble()
-
-            // Generate document ID
-            val budgetId = firestore.collection("budgets").document().id
-
-            if (amount != null) { //if amount is not null then create new budget entry
-                val budget = Budget(
-                    userID = userId.toString(),
-                    budgetPeriod = timePeriod,
-                    totalAmount = amount,
-                    category = category,
-                    minGoal = minAmount,
-                    maxGoal = maxAmount,
-                    description = description
-                )
-
-                firestore.collection("budgets").document(budgetId).set(budget)
-                    .addOnSuccessListener {
-                        Toast.makeText(requireContext(), "Budget saved to Firebase", Toast.LENGTH_SHORT).show()
-                        clearFields()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Failed to save budget", Toast.LENGTH_SHORT).show()
-                    }
-
-                //display toast message to let user know it was saved successfully
-                Toast.makeText(requireContext(), "Budget saved successfully", Toast.LENGTH_SHORT).show()
-
-            } else { //if amount is null, display toast message to let user know
-                Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
-            }
-        } else { //if budget period field is empty, display toast message to let user know
-            Toast.makeText(requireContext(), "budget period is required", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun clearFields() {
-        //clearing input fields
-        budgetPeriod.text.clear()
-        edtTotalAmount.text.clear()
-        edtMinAmount.text.clear()
-        edtMaxAmount.text.clear()
-        edtDescription.text.clear()
-    }
+//    //function for saving user input into database
+//    private fun saveBudgetData() {
+//        //declaring variables
+//
+//        val timePeriod = budgetPeriod.text.toString()
+//        val amountText = edtTotalAmount.text.toString()
+//        val category = categorySpinner.selectedItem?.toString() ?: "Other"
+//        val minimumGoal = edtMinAmount.text.toString()
+//        val maximumGoal = edtMaxAmount.text.toString()
+//        val description = edtDescription.text.toString()
+//
+//
+//        //if the time period input field is not empty then
+//        if (timePeriod.isNotEmpty()) {
+//            val amount = amountText.toDoubleOrNull() //convert input to double
+//            val minAmount = minimumGoal.toDouble()
+//            val maxAmount = maximumGoal.toDouble()
+//
+//            // Generate document ID
+//            val budgetId = firestore.collection("budgets").document().id
+//
+//            if (amount != null) { //if amount is not null then create new budget entry
+//                val budget = Budget(
+//                    userID = userId.toString(),
+//                    budgetPeriod = timePeriod,
+//                    totalAmount = amount,
+//                    category = category,
+//                    minGoal = minAmount,
+//                    maxGoal = maxAmount,
+//                    description = description
+//                )
+//
+//                firestore.collection("budgets").document(budgetId).set(budget)
+//                    .addOnSuccessListener {
+//                        Toast.makeText(requireContext(), "Budget saved to Firebase", Toast.LENGTH_SHORT).show()
+//                        clearFields()
+//                    }
+//                    .addOnFailureListener {
+//                        Toast.makeText(requireContext(), "Failed to save budget", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                //display toast message to let user know it was saved successfully
+//                Toast.makeText(requireContext(), "Budget saved successfully", Toast.LENGTH_SHORT).show()
+//
+//            } else { //if amount is null, display toast message to let user know
+//                Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+//            }
+//        } else { //if budget period field is empty, display toast message to let user know
+//            Toast.makeText(requireContext(), "budget period is required", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+//
+//    private fun clearFields() {
+//        //clearing input fields
+//        budgetPeriod.text.clear()
+//        edtTotalAmount.text.clear()
+//        edtMinAmount.text.clear()
+//        edtMaxAmount.text.clear()
+//        edtDescription.text.clear()
+//    }
 }
