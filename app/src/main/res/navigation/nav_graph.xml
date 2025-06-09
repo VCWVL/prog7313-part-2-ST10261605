@@ -10,74 +10,76 @@
         android:label="Home">
         <action
             android:id="@+id/action_homeFragment_to_addMoneyFragment"
-            app:destination="@+id/addMoneyFragment"/>
+            app:destination="@+id/AddMoneyFragment"/>
         <action
             android:id="@+id/action_homeFragment_to_addExpenseFragment"
             app:destination="@+id/AddExpenseFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_BudgetFragment"
+            app:destination="@+id/BudgetFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_ReportFragment"
+            app:destination="@+id/Report_Fragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_TransactionsFragment"
+            app:destination="@+id/TransactionsFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_PieChartFragment"
+            app:destination="@+id/ProfilePageFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_PointsPageFragment"
+            app:destination="@+id/PointsPageFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_ProfilePageFragment"
+            app:destination="@+id/ProfilePageFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/AddMoneyFragment"
         android:name="com.example.prog7313_part2.AddMoneyFragment"
-        android:label="Add Money" />
+        android:label="Add Money" >
+    </fragment>
 
     <fragment
         android:id="@+id/AddExpenseFragment"
         android:name="com.example.prog7313_part2.AddExpenseFragment"
-        android:label="Add Expense" />
+        android:label="Add Expense" >
+    </fragment>
 
     <fragment
         android:id="@+id/BudgetFragment"
         android:name="com.example.prog7313_part2.BudgetFragment"
         android:label="Budget">
-        <action
-            android:id="@+id/action_homeFragment_to_BudgetFragment"
-            app:destination="@+id/BudgetFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/Report_Fragment"
         android:name="com.example.prog7313_part2.Report_Fragment"
         android:label="Reports" >
-        <action
-            android:id="@+id/action_homeFragment_to_ReportFragment"
-            app:destination="@+id/Report_Fragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/TransactionsFragment"
         android:name="com.example.prog7313_part2.TransactionsFragment"
         android:label="Transactions">
-        <action
-            android:id="@+id/action_homeFragment_to_TransactionsFragment"
-            app:destination="@+id/TransactionsFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/PieChartFragment"
         android:name="com.example.prog7313_part2.PieChartFragment"
         android:label="PieChart">
-        <action
-            android:id="@+id/action_homeFragment_to_PieChartFragment"
-            app:destination="@+id/PieChartFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/PointsPageFragment"
         android:name="com.example.prog7313_part2.PointsPageFragment"
         android:label="PointsPage">
-        <action
-            android:id="@+id/action_homeFragment_to_PointsPageFragment"
-            app:destination="@+id/PointsPageFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/ProfilePageFragment"
         android:name="com.example.prog7313_part2.ProfilePageFragment"
         android:label="ProfilePage">
-        <action
-            android:id="@+id/action_homeFragment_to_ProfilePageFragment"
-            app:destination="@+id/ProfilePageFragment"/>
     </fragment>
 
 </navigation>
