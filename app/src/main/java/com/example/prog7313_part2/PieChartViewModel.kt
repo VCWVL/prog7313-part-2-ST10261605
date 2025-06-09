@@ -1,6 +1,8 @@
 package com.example.prog7313_part2
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,7 +11,7 @@ class PieChartViewModel : ViewModel() {
     private val firestore = FirebaseFirestore.getInstance()
 
     private val _budgetData = MutableStateFlow<List<BudgetCategory>>(emptyList())
-    val budgetData: StateFlow<List<BudgetCategory>> = _budgetData
+    val budgetData: LiveData<List<BudgetCategory>> = _budgetData.asLiveData()
 
     fun fetchBudgetData(userId: String) {
         firestore.collection("users").document(userId).collection("categories")
