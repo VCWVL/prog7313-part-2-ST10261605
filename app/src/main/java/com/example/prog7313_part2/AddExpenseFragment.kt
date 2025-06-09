@@ -148,21 +148,48 @@ class AddExpenseFragment : Fragment() {
             return
         }
 
-        if (amountText.isEmpty()) {
-            Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
+        if (amountText.isEmpty() || date.isEmpty() || description.isEmpty() || startDate.isEmpty() || endDate.isEmpty() || currentUser == null) {
+            Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
             return
         }
 
         val amount = amountText.toDoubleOrNull()
         if (amount == null) {
-            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Invalid amount.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Generate document ID
+        val firestore = FirebaseFirestore.getInstance()
+        val storage = FirebaseStorage.getInstance()
         val expenseId = firestore.collection("expenses").document().id
 
-        fun uploadData(receiptUrl: String?) {
+        if (selectedFileUri != null) {
+            //upload receipt first, then save data
+            val storageRef = storage.reference.child("expense_receipts/${UUID.randomUUID()}")
+            storageRef.putFile(selectedFileUri!!)
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let { throw it }
+                    }
+                    storageRef.downloadUrl
+                }.addOnSuccessListener { uri ->
+                    val expense = Expense(
+                        id = expenseId,
+                        userID = userUid,
+                        category = category,
+                        amount = amount,
+                        date = date,
+                        description = description,
+                        startDate = startDate,
+                        endDate = endDate,
+                        fileUri = uri.toString()
+                    )
+                    saveToFirestore(firestore, expense, expenseId)
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to upload receipt.", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            //no receipt, save directly
             val expense = Expense(
                 id = expenseId,
                 userID = userUid,
@@ -172,38 +199,29 @@ class AddExpenseFragment : Fragment() {
                 description = description,
                 startDate = startDate,
                 endDate = endDate,
-                fileUri = receiptUrl
+                fileUri = null
             )
-
-            firestore.collection("expenses").document(expenseId).set(expense)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Expense saved to Firebase", Toast.LENGTH_SHORT).show()
-                    clearFields()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Failed to save expense", Toast.LENGTH_SHORT).show()
-                }
-        }
-
-        // Upload receipt if selected
-        if (selectedFileUri != null) {
-            val ref = storage.reference.child("receipts/${UUID.randomUUID()}")
-            ref.putFile(selectedFileUri!!)
-                .continueWithTask { task ->
-                    if (!task.isSuccessful) throw task.exception!!
-                    ref.downloadUrl
-                }
-                .addOnSuccessListener { uri ->
-                    uploadData(uri.toString())
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Receipt upload failed", Toast.LENGTH_SHORT).show()
-                    uploadData(null)
-                }
-        } else {
-            uploadData(null)
+            saveToFirestore(firestore, expense, expenseId)
         }
     }
+
+    //function for saving expense to firestore
+    private fun saveToFirestore(
+        firestore: FirebaseFirestore,
+        expense: Expense,
+        expenseId: String
+    ) {
+        firestore.collection("expenses").document(expenseId)
+            .set(expense)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Expense saved successfully.", Toast.LENGTH_SHORT).show()
+                clearFields()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Failed to save expense: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+    }
+
 
     //function to clear all fields
     private fun clearFields() {
