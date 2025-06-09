@@ -12,10 +12,9 @@
         android:id="@+id/searchBar"
         android:layout_width="216dp"
         android:layout_height="45dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/edittext_border"
         android:queryHint="Search"
         android:textAlignment="center"
@@ -28,10 +27,10 @@
         android:id="@+id/imageView"
         android:layout_width="75dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="98dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/profilephoto_border"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/reportsCategorySubHeading"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartPeriod"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,81 +39,79 @@
         android:id="@+id/reportsCategoryHeading"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="35dp"
         android:text="Reports"
         android:textColor="@color/black"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/reportsCategorySubHeading"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartPeriod"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
-    <TextView
-        android:id="@+id/reportsCategorySubHeading"
-        android:layout_width="360dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="43dp"
-        android:text="Category amounts during selectable time period."
+    <Button
+        android:id="@+id/btnStartPeriod"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="47dp"
+        android:backgroundTint="@color/white"
+        android:hint="Select start period 📅"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/edtMonthPicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reportsCategoryHeading" />
 
-    <EditText
-        android:id="@+id/edtMonthPicker"
+    <Button
+        android:id="@+id/btnEndPeriod"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="33dp"
-        android:background="@drawable/edittext_border_menuitems"
-        android:hint="Select monthly period 📅"
-        app:layout_constraintBottom_toTopOf="@+id/listOfCategoryDisplay"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="47dp"
+        android:backgroundTint="@color/white"
+        android:hint="Select end period 📅"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reportsCategorySubHeading" />
+        app:layout_constraintTop_toBottomOf="@+id/btnStartPeriod" />
 
-
-    <!--displaying the month here that the user selects-->
-
-    <!--custom recycle view for user to be able to download any receipts
-    that they uploaded when adding an expense-->
+    <Button
+        android:id="@+id/btnSearchCategory"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="47dp"
+        android:backgroundTint="#046200"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEndPeriod" />
 
     <TextView
         android:id="@+id/listOfCategoryDisplay"
-        android:layout_width="wrap_content"
+        android:layout_width="335dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="28dp"
-        android:text="Category and amount spent for time period: "
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="60dp"
+        android:text="List of category amounts for time period: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMonthPicker"
-        app:layout_constraintEnd_toStartOf="@+id/listOfCategoryDisplay2" />
-
-    <TextView
-        android:id="@+id/listOfCategoryDisplay2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/listOfCategoryDisplay"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintStart_toEndOf="@id/listOfCategoryDisplay"
-        app:layout_constraintTop_toBottomOf="@+id/edtMonthPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchCategory" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listOfCategoryDisplay" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

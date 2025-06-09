@@ -2,110 +2,131 @@ package com.example.prog7313_part2
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.EditText
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CategoryReportActivity : AppCompatActivity() {
 
-    private lateinit var edtMonthPicker: EditText
+    private lateinit var btnStartPeriod: Button
+    private lateinit var btnEndPeriod: Button
+    private lateinit var btnSearchCategory: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var listOfCategoryDisplay: TextView
+
+    private var startDate: String? = null
+    private var endDate: String? = null
+
+    private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_report)
 
-        edtMonthPicker = findViewById(R.id.edtMonthPicker)
+        btnStartPeriod = findViewById(R.id.btnStartPeriod)
+        btnEndPeriod = findViewById(R.id.btnEndPeriod)
+        btnSearchCategory = findViewById(R.id.btnSearchCategory)
         recyclerView = findViewById(R.id.recyclerView)
+        listOfCategoryDisplay = findViewById(R.id.listOfCategoryDisplay)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         categoryAdapter = CategoryAdapter(emptyList())
         recyclerView.adapter = categoryAdapter
 
-        edtMonthPicker.setOnClickListener {
-            showMonthPickerDialog()
+        btnStartPeriod.setOnClickListener {
+            showDatePicker { selectedDate ->
+                startDate = selectedDate
+                btnStartPeriod.text = "Start: $selectedDate"
+            }
+        }
+
+        btnEndPeriod.setOnClickListener {
+            showDatePicker { selectedDate ->
+                endDate = selectedDate
+                btnEndPeriod.text = "End: $selectedDate"
+            }
+        }
+
+        btnSearchCategory.setOnClickListener {
+            if (startDate == null || endDate == null) {
+                Toast.makeText(this, "Please select start and end periods", Toast.LENGTH_SHORT).show()
+            } else {
+                loadCategoryData(startDate!!, endDate!!)
+            }
         }
     }
 
-    private fun showMonthPickerDialog() {
+    private fun showDatePicker(onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
 
-        val datePickerDialog = DatePickerDialog(this,
-            { _, year, month, _ ->
-
-                val monthShortName = getMonthShortName(month) // Correct 3-letter month name
-                val selectedYear = year.toString()
-
-                // For display in EditText → can show as 06/2025
-                val selectedMonthDisplay = String.format("%02d", month + 1)
-                edtMonthPicker.setText("$selectedMonthDisplay/$selectedYear")
-
-                // Correct pattern for LIKE query:
-                val monthYearPattern = "$monthShortName%, $selectedYear%"
-
-                // Load data
-                loadCategoryData(monthYearPattern)
-
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val selectedCalendar = Calendar.getInstance()
+                selectedCalendar.set(year, month, dayOfMonth)
+                val formattedDate = dateFormatter.format(selectedCalendar.time)
+                onDateSelected(formattedDate)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
         )
 
         datePickerDialog.show()
     }
 
-    // Helper function to map month number → "Jan", "Feb", etc.
-    private fun getMonthShortName(month: Int): String {
-        val monthNames = arrayOf(
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        )
-        return monthNames[month]
-    }
+    private fun loadCategoryData(startDateStr: String, endDateStr: String) {
+        val db = FirebaseFirestore.getInstance()
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
 
-    private fun loadCategoryData(monthPattern: String) {
-        val expenseDao = ExpenseDatabase.getDatabase(this).expenseDao()
-
-        // Read logged in user id from SharedPreferences
-        val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
-        val userId =
-            sharedPref.getString("logged_in_user_id", null)  // default -1 means no user saved
-
-        if (userId == null) {
-            // No logged in user found, handle error or redirect to login
+        if (currentUserId == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             return
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val categoryAmountList = expenseDao.getCategoryAmountForMonth(userId, monthPattern)
+        val startDate = dateFormatter.parse(startDateStr)!!
+        val endDate = dateFormatter.parse(endDateStr)!!
 
-                withContext(Dispatchers.Main) {
-                    if (categoryAmountList.isEmpty()) {
-                        Toast.makeText(
-                            this@CategoryReportActivity,
-                            "No data for this selected time period",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    categoryAdapter.updateData(categoryAmountList)
+        val startTimestamp = com.google.firebase.Timestamp(startDate)
+        val endTimestamp = com.google.firebase.Timestamp(endDate)
+
+        db.collection("expenses")
+            .whereEqualTo("userID", currentUserId)
+            .whereGreaterThanOrEqualTo("date", startTimestamp)
+            .whereLessThanOrEqualTo("date", endTimestamp)
+            .get()
+            .addOnSuccessListener { result ->
+                val categoryAmountMap = mutableMapOf<String, Double>()
+
+                for (doc in result) {
+                    val expense = doc.toObject(Expense::class.java)
+
+                    val category = expense.category ?: "Unknown"
+                    val amount = expense.amount ?: 0.0
+
+                    categoryAmountMap[category] = categoryAmountMap.getOrDefault(category, 0.0) + amount
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@CategoryReportActivity,
-                        "Error loading data: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+
+                val categoryAmountList = categoryAmountMap.map { CategoryAmount(it.key, it.value) }
+
+                listOfCategoryDisplay.text = "List of category amounts for period: $startDateStr to $endDateStr"
+
+                if (categoryAmountList.isEmpty()) {
+                    Toast.makeText(this, "No data for this selected time period", Toast.LENGTH_SHORT).show()
                 }
+
+                categoryAdapter.updateData(categoryAmountList)
             }
-        }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error loading data: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 }

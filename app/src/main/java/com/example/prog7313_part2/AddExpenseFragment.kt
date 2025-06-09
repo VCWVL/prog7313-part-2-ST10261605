@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -102,19 +103,22 @@ class AddExpenseFragment : Fragment() {
 
         //when the user selects a date
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = datePicker.headerText //example: Apr 20, 2025
-            edtDatePicker.setText(selectedDate)
+            val selectedDate = Date(selection) // this gives you a Date object
+            val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+            edtDatePicker.setText(formattedDate) // << store it in yyyy-MM-dd format
         }
-
         datePicker2.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = datePicker2.headerText //example: Apr 20, 2025
-            edtStartDate.setText(selectedDate)
+            val selectedDate = Date(selection)
+            val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+            edtStartDate.setText(formattedDate)
         }
 
         datePicker3.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = datePicker3.headerText //example: Apr 20, 2025
-            edtEndDate.setText(selectedDate)
+            val selectedDate = Date(selection)
+            val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+            edtEndDate.setText(formattedDate)
         }
+
         //when the user uploads an image
         btnUploadReceipt = view.findViewById(R.id.btnUploadReceipt)
 
@@ -222,7 +226,6 @@ class AddExpenseFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to save expense: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
-
 
     //function to clear all fields
     private fun clearFields() {
