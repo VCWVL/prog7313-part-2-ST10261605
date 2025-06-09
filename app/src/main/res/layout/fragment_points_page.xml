@@ -55,14 +55,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="117dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="54dp"
-        android:text="Rank"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold"
+        android:id="@+id/totalPoints"
+        android:layout_width="159dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="112dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -82,11 +87,13 @@
         android:layout_height="45dp"
         android:layout_marginStart="69dp"
         android:layout_marginTop="79dp"
+        android:layout_marginEnd="60dp"
         android:text="Achievements and Badges"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -114,7 +121,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="33dp"
-        android:text="Budget Boss"
+        android:text="Income Boss"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -126,7 +133,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="17dp"
         android:layout_marginBottom="28dp"
-        android:text="Stick to Budget for 3 months"
+        android:text="Add 20 income entries"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@+id/textView19"
         app:layout_constraintStart_toEndOf="@+id/imageView3" />
@@ -149,10 +156,38 @@
         android:layout_height="43dp"
         android:layout_marginEnd="104dp"
         android:layout_marginBottom="89dp"
-        android:text="Logged income from multiple sources"
+        android:text="Log income from 5 different categories"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/incomeEntriesProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="77dp"
+        android:text="0/20"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/categoriesProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/categoriesProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="105dp"
+        android:text="0/5"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView20" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

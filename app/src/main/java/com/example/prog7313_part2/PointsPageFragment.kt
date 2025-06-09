@@ -1,59 +1,93 @@
 package com.example.prog7313_part2
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PointsPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PointsPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var incomeEntriesProgress: TextView
+    private lateinit var categoriesProgress: TextView
+    private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_points_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_points_page, container, false)
+
+        //for displaying total points
+        val pointsTextView = view.findViewById<TextView>(R.id.totalPoints)
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            db.collection("UserAchievements").document(userId)
+                .addSnapshotListener { snapshot, _ ->
+                    val points = snapshot?.getLong("points") ?: 0
+                    pointsTextView.text = "Points: $points"
+                }
+        }
+
+        incomeEntriesProgress = view.findViewById(R.id.incomeEntriesProgress)
+        categoriesProgress = view.findViewById(R.id.categoriesProgress)
+        db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+
+        fetchIncomeAchievements()
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PointsPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PointsPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    //function to dynamically update users points as they unlock achievements
+    private fun fetchIncomeAchievements() {
+        val userId = auth.currentUser?.uid ?: return
+        val userAchievementsRef = db.collection("UserAchievements").document(userId)
+
+        db.collection("Income")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { incomeDocs ->
+                val totalEntries = incomeDocs.size()
+                val categorySet = incomeDocs.mapNotNull { it.getString("category")?.trim() }.toSet()
+
+                // Update UI
+                incomeEntriesProgress.text = "${totalEntries.coerceAtMost(20)}/20"
+                categoriesProgress.text = "${categorySet.size.coerceAtMost(5)}/5"
+
+                userAchievementsRef.get().addOnSuccessListener { doc ->
+                    val data = doc.data ?: emptyMap<String, Any>()
+                    var pointsToAdd = 0
+                    val updates = mutableMapOf<String, Any>()
+
+                    val entriesComplete = totalEntries >= 20
+                    val categoriesComplete = categorySet.size >= 5
+
+                    if (entriesComplete && data["incomeEntriesCompleted"] != true) {
+                        updates["incomeEntriesCompleted"] = true
+                        pointsToAdd += 10
+                    }
+
+                    if (categoriesComplete && data["incomeCategoriesCompleted"] != true) {
+                        updates["incomeCategoriesCompleted"] = true
+                        pointsToAdd += 10
+                    }
+
+                    if (pointsToAdd > 0) {
+                        val currentPoints = (data["points"] as? Long)?.toInt() ?: 0
+                        updates["points"] = currentPoints + pointsToAdd
+
+                        userAchievementsRef.set(updates, SetOptions.merge())
+                    }
                 }
+            }
+            .addOnFailureListener {
+                incomeEntriesProgress.text = "Error"
+                categoriesProgress.text = "Error"
             }
     }
 }
