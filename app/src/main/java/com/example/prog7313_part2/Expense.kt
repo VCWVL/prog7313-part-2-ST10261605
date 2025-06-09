@@ -5,9 +5,9 @@ data class Expense(
     val userID: String = "",
     val category: String = "",
     val amount: Double = 0.0,
-    val date: String = "",
+    val date: String? = "",
     val description: String = "",
-    val startDate: String = "",
-    val endDate: String = "",
+    val startDate: String? = "",
+    val endDate: String? = "",
     val fileUri: String? = null
 )
