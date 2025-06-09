@@ -49,6 +49,7 @@ dependencies {
     //code attribute:
     //https://firebase.google.com/docs/android/setup (accessed: 8 June 2025)
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation ("com.google.firebase:firebase-analytics-ktx")
 
     // For pie chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
