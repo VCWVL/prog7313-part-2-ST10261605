@@ -30,7 +30,7 @@ class AddExpenseFragment : Fragment() {
     private lateinit var edtEndDate: EditText //end date
     private lateinit var edtDescription: EditText
     private lateinit var btnSave: Button
-//    private var userId: Int = -1 //making userId a global variable so that expense object can be created with it
+    private var userId: Int = -1 //making userId a global variable so that expense object can be created with it
     private lateinit var btnUploadReceipt: Button
     private var selectedFileUri: Uri? = null
     private val FILE_PICKER_REQUEST_CODE = 100
@@ -51,9 +51,6 @@ class AddExpenseFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
-
-//        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
-//        val userId = sharedPref.getInt("logged_in_user_id", -1)
 
         //setting variable values to user input
         categorySpinner = view.findViewById(R.id.categorySelection)
@@ -133,89 +130,91 @@ class AddExpenseFragment : Fragment() {
         }
         return view
     }
-//
-//    //function for saving user input into database
-//    private fun saveExpenseData() {
-//        val category = categorySpinner.selectedItem?.toString() ?: "Other"
-//        val amountText = edtAmount.text.toString()
-//        val date = edtDatePicker.text.toString()
-//        val description = edtDescription.text.toString()
-//        val startDate = edtStartDate.text.toString()
-//        val endDate = edtEndDate.text.toString()
-//
-//        if (amountText.isEmpty()) {
-//            Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        val amount = amountText.toDoubleOrNull()
-//        if (amount == null) {
-//            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        val currentUser = auth.currentUser
-//        if (currentUser == null) {
-//            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        // Generate document ID
-//        val expenseId = firestore.collection("expenses").document().id
-//
-//        fun uploadData(receiptUrl: String?) {
-//            val expense = Expense(
-//                id = expenseId,
-//                userID = currentUser.uid,
-//                category = category,
-//                amount = amount,
-//                date = date,
-//                description = description,
-//                startDate = startDate,
-//                endDate = endDate,
-//                fileUri = receiptUrl
-//            )
-//
-//            firestore.collection("expenses").document(expenseId).set(expense)
-//                .addOnSuccessListener {
-//                    Toast.makeText(requireContext(), "Expense saved to Firebase", Toast.LENGTH_SHORT).show()
-//                    clearFields()
-//                }
-//                .addOnFailureListener {
-//                    Toast.makeText(requireContext(), "Failed to save expense", Toast.LENGTH_SHORT).show()
-//                }
-//        }
-//
-//        // Upload receipt if selected
-//        if (selectedFileUri != null) {
-//            val ref = storage.reference.child("receipts/${UUID.randomUUID()}")
-//            ref.putFile(selectedFileUri!!)
-//                .continueWithTask { task ->
-//                    if (!task.isSuccessful) throw task.exception!!
-//                    ref.downloadUrl
-//                }
-//                .addOnSuccessListener { uri ->
-//                    uploadData(uri.toString())
-//                }
-//                .addOnFailureListener {
-//                    Toast.makeText(requireContext(), "Receipt upload failed", Toast.LENGTH_SHORT).show()
-//                    uploadData(null)
-//                }
-//        } else {
-//            uploadData(null)
-//        }
-//    }
-//
-//    //function to clear all fields
-//    private fun clearFields() {
-//        edtAmount.text.clear()
-//        edtDatePicker.text.clear()
-//        edtDescription.text.clear()
-//        edtStartDate.text.clear()
-//        edtEndDate.text.clear()
-//        selectedFileUri = null
-//        txtFileName.text = ""
-//    }
+
+    //function for saving user input into database
+    private fun saveExpenseData() {
+        val category = categorySpinner.selectedItem?.toString() ?: "Other"
+        val amountText = edtAmount.text.toString()
+        val date = edtDatePicker.text.toString()
+        val description = edtDescription.text.toString()
+        val startDate = edtStartDate.text.toString()
+        val endDate = edtEndDate.text.toString()
+
+        //Firebase authentication check
+        val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+        val userUid = currentUser?.uid
+        if (userUid == null) {
+            Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (amountText.isEmpty()) {
+            Toast.makeText(requireContext(), "Amount is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val amount = amountText.toDoubleOrNull()
+        if (amount == null) {
+            Toast.makeText(requireContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Generate document ID
+        val expenseId = firestore.collection("expenses").document().id
+
+        fun uploadData(receiptUrl: String?) {
+            val expense = Expense(
+                id = expenseId,
+                userID = userUid,
+                category = category,
+                amount = amount,
+                date = date,
+                description = description,
+                startDate = startDate,
+                endDate = endDate,
+                fileUri = receiptUrl
+            )
+
+            firestore.collection("expenses").document(expenseId).set(expense)
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Expense saved to Firebase", Toast.LENGTH_SHORT).show()
+                    clearFields()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to save expense", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        // Upload receipt if selected
+        if (selectedFileUri != null) {
+            val ref = storage.reference.child("receipts/${UUID.randomUUID()}")
+            ref.putFile(selectedFileUri!!)
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) throw task.exception!!
+                    ref.downloadUrl
+                }
+                .addOnSuccessListener { uri ->
+                    uploadData(uri.toString())
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Receipt upload failed", Toast.LENGTH_SHORT).show()
+                    uploadData(null)
+                }
+        } else {
+            uploadData(null)
+        }
+    }
+
+    //function to clear all fields
+    private fun clearFields() {
+        edtAmount.text.clear()
+        edtDatePicker.text.clear()
+        edtDescription.text.clear()
+        edtStartDate.text.clear()
+        edtEndDate.text.clear()
+        selectedFileUri = null
+        txtFileName.text = ""
+    }
 
 
     private fun getFileNameFromUri(uri: Uri): String? {
