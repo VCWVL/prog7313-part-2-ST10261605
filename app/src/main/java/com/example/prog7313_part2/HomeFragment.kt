@@ -67,6 +67,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_ReportFragment)
         }
 
+        val pointsPage = view.findViewById<Button>(R.id.btnPoints)
+        reportsPage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_PointsPageFragment)
+        }
+
         val profilePage = view.findViewById<Button>(R.id.btnProfilePage)
         profilePage.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_ProfilePageFragment)

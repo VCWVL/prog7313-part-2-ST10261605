@@ -63,6 +63,15 @@
     </fragment>
 
     <fragment
+        android:id="@+id/PointsPageFragment"
+        android:name="com.example.prog7313_part2.PointsPageFragment"
+        android:label="PointsPage">
+        <action
+            android:id="@+id/action_homeFragment_to_PointsPageFragment"
+            app:destination="@+id/PointsPageFragment"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/ProfilePageFragment"
         android:name="com.example.prog7313_part2.ProfilePageFragment"
         android:label="ProfilePage">
