@@ -41,7 +41,7 @@ class register : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Register with Firebase Auth
+            // Register with Firebase Auth user
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
