@@ -45,11 +45,15 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation ("androidx.recyclerview:recyclerview:1.3.1")
-    //firebase
-    //code attribute:
-    //https://firebase.google.com/docs/android/setup (accessed: 8 June 2025)
-    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation ("com.google.firebase:firebase-analytics-ktx")
+
+    //Firebase dependencies with BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+
 
     // For pie chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -77,5 +81,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
 }
+//references:
+//https://firebase.google.com/docs/android/setup (accessed: 8 June 2025)
