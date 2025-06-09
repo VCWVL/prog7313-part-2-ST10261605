@@ -54,20 +54,16 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
 
-
     // For pie chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
-//    //roomDb components
-//    implementation ("androidx.room:room-runtime:2.5.2")
-//    //adding kapt for roomDb
-//    kapt ("androidx.room:room-compiler:2.5.2")
-//    implementation ("androidx.room:room-ktx:2.5.2")
+    //for export worksheets
+    implementation ("org.apache.poi:poi:5.2.2")
+    implementation ("org.apache.poi:poi-ooxml:5.2.2")
 
     implementation(libs.androidx.lifecycle.viewmodel.android)
-//    implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
 
     implementation(libs.androidx.core.ktx)
@@ -77,6 +73,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.androidx.media3.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

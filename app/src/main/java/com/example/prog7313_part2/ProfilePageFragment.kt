@@ -3,11 +3,21 @@ package com.example.prog7313_part2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.media3.common.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlin.jvm.java
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,10 +56,17 @@ class ProfilePageFragment : Fragment() {
         super.onViewCreated(view,savedInstanceState)
 
         val logoutbtn: Button = view.findViewById(R.id.Logoutbtn)
+        val exportbtn: Button = view.findViewById(R.id.Exportbtn)
 
+        //for logout
         logoutbtn.setOnClickListener {
             logout()
-
+        }
+        //for export worksheets
+        exportbtn.setOnClickListener {
+            fetchExpensesFromFirestore { expenses ->
+                exportExpensesToExcel(requireContext(), expenses)
+            }
         }
     }
 
@@ -64,6 +81,81 @@ class ProfilePageFragment : Fragment() {
         startActivity(intent)
     }
 
+    fun fetchExpensesFromFirestore(onResult: (List<Expense>) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("expenses")
+            .get()
+            .addOnSuccessListener { result ->
+                val expenses = result.mapNotNull { doc ->
+                    try {
+                        Expense(
+                            id = doc.id,
+                            userID = doc.getString("userID") ?: "",
+                            category = doc.getString("category") ?: "",
+                            amount = doc.getDouble("amount") ?: 0.0,
+                            date = doc.getTimestamp("date"),
+                            description = doc.getString("description") ?: "",
+                            startDate = doc.getTimestamp("startDate"),
+                            endDate = doc.getTimestamp("endDate"),
+                            fileUri = doc.getString("fileUri")
+                        )
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        null
+                    }
+                }
+                onResult(expenses)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+            }
+    }
+
+    //function for exporting expenses to excel worksheet
+    fun exportExpensesToExcel(context: Context, expenses: List<Expense>) {
+        try {
+            val workbook: Workbook = XSSFWorkbook() //initializing workbook
+            val sheet = workbook.createSheet("Expenses") //initializing sheet
+
+            // Header row
+            val header = sheet.createRow(0)
+            header.createCell(0).setCellValue("ID")
+            header.createCell(1).setCellValue("User ID")
+            header.createCell(2).setCellValue("Category")
+            header.createCell(3).setCellValue("Amount")
+            header.createCell(4).setCellValue("Date")
+            header.createCell(5).setCellValue("Description")
+
+            val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            // Data rows
+            for ((index, expense) in expenses.withIndex()) {
+                val row = sheet.createRow(index + 1)
+                row.createCell(0).setCellValue(expense.id)
+                row.createCell(1).setCellValue(expense.userID)
+                row.createCell(2).setCellValue(expense.category)
+                row.createCell(3).setCellValue(expense.amount)
+                row.createCell(4).setCellValue(
+                    expense.date?.toDate()?.let { formatter.format(it) } ?: "N/A"
+                )
+                row.createCell(5).setCellValue(expense.description)
+            }
+
+            // Save file
+            val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val file = File(downloadsDir, "ExpensesExport_${System.currentTimeMillis()}.xlsx")
+
+            val outputStream = FileOutputStream(file)
+            workbook.write(outputStream)
+            outputStream.close()
+            workbook.close()
+
+            Toast.makeText(context, "Exported to ${file.absolutePath}", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(context, "Export failed: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
 
     companion object {
         /**
