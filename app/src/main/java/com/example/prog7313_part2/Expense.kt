@@ -9,7 +9,7 @@ data class Expense(
     val amount: Double = 0.0,
     val date: Timestamp? = null,
     val description: String = "",
-    val startDate: String? = "",
-    val endDate: String? = "",
+    val startDate: Timestamp? = null,
+    val endDate: Timestamp? = null,
     val fileUri: String? = null
 )
