@@ -22,6 +22,28 @@
         Category Goals" />
 
     <!--UI of pie chart -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/textView22"
+        android:layout_margin="16dp"/>
 
+    <LinearLayout
+        android:id="@+id/legendLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pieChart"
+        android:layout_margin="16dp"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/summaryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/legendLayout"
+        android:layout_margin="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

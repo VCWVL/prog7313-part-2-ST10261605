@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="Crimson">#DC143C</color>
-    <color name="RoyalBlue">#4169E1</color>
     <color name="ForestGreen">#228B22</color>
-    <color name="MediumPurple">#9370DB</color>
+    <color name="Teal">#008080</color>
+    <color name="Indigo">#4B0082</color>
+    <color name="Maroon">#800000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
 
 </resources>
