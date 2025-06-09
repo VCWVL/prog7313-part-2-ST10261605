@@ -126,7 +126,7 @@ class AddExpenseFragment : Fragment() {
 
         //upon the user clicking the save button, save their input into expense database using function
         btnSave.setOnClickListener {
-//            saveExpenseData()
+            saveExpenseData()
         }
         return view
     }
