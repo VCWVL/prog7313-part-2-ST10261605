@@ -96,7 +96,15 @@ class CategoryReportActivity : AppCompatActivity() {
         val endDate = dateFormatter.parse(endDateStr)!!
 
         val startTimestamp = com.google.firebase.Timestamp(startDate)
-        val endTimestamp = com.google.firebase.Timestamp(endDate)
+
+        // Adjust endDate to end of day
+        val calendar = Calendar.getInstance()
+        calendar.time = endDate
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
+        calendar.set(Calendar.MINUTE, 59)
+        calendar.set(Calendar.SECOND, 59)
+        val endOfDayDate = calendar.time
+        val endTimestamp = com.google.firebase.Timestamp(endOfDayDate)
 
         db.collection("expenses")
             .whereEqualTo("userID", currentUserId)
@@ -130,3 +138,4 @@ class CategoryReportActivity : AppCompatActivity() {
             }
     }
 }
+
