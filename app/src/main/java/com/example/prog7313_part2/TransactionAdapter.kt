@@ -57,4 +57,9 @@ class TransactionsAdapter(private val transactions: List<Transaction>) :
         val txtTransactionDate: TextView = itemView.findViewById(R.id.txtTransactionDate)
         val txtTransactionCategory: TextView = itemView.findViewById(R.id.txtTransactionCategory)
     }
+    fun updateData(newTransactions: List<Transaction>) {
+        (transactions as MutableList).clear()
+        (transactions as MutableList).addAll(newTransactions)
+        notifyDataSetChanged()
+    }
 }
