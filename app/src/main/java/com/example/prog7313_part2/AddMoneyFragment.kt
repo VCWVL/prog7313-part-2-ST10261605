@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class AddMoneyFragment : Fragment() {
 
@@ -89,8 +92,12 @@ class AddMoneyFragment : Fragment() {
     private fun saveIncomeData() {
         val category = categorySpinner.selectedItem?.toString() ?: "Other"
         val amountText = edtAmount.text.toString()
-        val date = edtDatePicker.text.toString()
+        val dateStr = edtDatePicker.text.toString()
         val description = edtDescription.text.toString()
+
+        //using timestamp for firebase
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date: Timestamp? = try { Timestamp(sdf.parse(dateStr)!!) } catch (e: Exception) { null }
 
         //Firebase authentication check
         val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.Timestamp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.google.firebase.auth.FirebaseAuth
@@ -139,10 +140,18 @@ class AddExpenseFragment : Fragment() {
     private fun saveExpenseData() {
         val category = categorySpinner.selectedItem?.toString() ?: "Other"
         val amountText = edtAmount.text.toString()
-        val date = edtDatePicker.text.toString()
         val description = edtDescription.text.toString()
-        val startDate = edtStartDate.text.toString()
-        val endDate = edtEndDate.text.toString()
+
+        val dateStr = edtDatePicker.text.toString()
+        val startDateStr = edtStartDate.text.toString()
+        val endDateStr = edtEndDate.text.toString()
+
+        //using timestamp for firebase
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date: Timestamp? = try { Timestamp(sdf.parse(dateStr)!!) } catch (e: Exception) { null }
+        val startDate: Timestamp? = try { Timestamp(sdf.parse(startDateStr)!!) } catch (e: Exception) { null }
+        val endDate: Timestamp? = try { Timestamp(sdf.parse(endDateStr)!!) } catch (e: Exception) { null }
+
 
         //Firebase authentication check
         val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
@@ -152,7 +161,7 @@ class AddExpenseFragment : Fragment() {
             return
         }
 
-        if (amountText.isEmpty() || date.isEmpty() || description.isEmpty() || startDate.isEmpty() || endDate.isEmpty() || currentUser == null) {
+        if (amountText.isEmpty() || date == null || description.isEmpty() || startDate == null || endDate == null || currentUser == null) {
             Toast.makeText(requireContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show()
             return
         }
