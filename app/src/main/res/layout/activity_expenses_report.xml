@@ -58,45 +58,65 @@
         android:id="@+id/btnStartPeriod"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="47dp"
         android:backgroundTint="@color/white"
         android:hint="Select start period 📅"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="174dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportsExpenseHeading" />
 
     <Button
         android:id="@+id/btnEndPeriod"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="47dp"
         android:backgroundTint="@color/white"
         android:hint="Select end period 📅"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="250dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartPeriod" />
 
     <Button
         android:id="@+id/btnSearchExpenses"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="47dp"
         android:backgroundTint="#046200"
         android:text="Search"
-        tools:layout_editor_absoluteX="64dp"
-        tools:layout_editor_absoluteY="329dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEndPeriod" />
 
     <TextView
         android:id="@+id/listOfExpensesDisplay"
         android:layout_width="335dp"
         android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="60dp"
         android:text="List of expenses for time period: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="414dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchExpenses" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="445dp" />
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listOfExpensesDisplay" />
 </androidx.constraintlayout.widget.ConstraintLayout>
