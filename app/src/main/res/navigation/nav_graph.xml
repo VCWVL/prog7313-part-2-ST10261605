@@ -2,76 +2,82 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/HomeFragment"
         android:name="com.example.prog7313_part2.HomeFragment"
         android:label="Home">
         <action
             android:id="@+id/action_homeFragment_to_addMoneyFragment"
-            app:destination="@id/addMoneyFragment" />
+            app:destination="@+id/addMoneyFragment"/>
         <action
             android:id="@+id/action_homeFragment_to_addExpenseFragment"
-            app:destination="@id/addExpenseFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_budgetFragment"
-            app:destination="@id/budgetFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_transactionsFragment"
-            app:destination="@id/transactionsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_pieChartFragment"
-            app:destination="@id/pieChartFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_pointsPageFragment"
-            app:destination="@id/pointsPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_profilePageFragment"
-            app:destination="@id/profilePageFragment" />
+            app:destination="@+id/AddExpenseFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/addMoneyFragment"
+        android:id="@+id/AddMoneyFragment"
         android:name="com.example.prog7313_part2.AddMoneyFragment"
         android:label="Add Money" />
 
     <fragment
-        android:id="@+id/addExpenseFragment"
+        android:id="@+id/AddExpenseFragment"
         android:name="com.example.prog7313_part2.AddExpenseFragment"
         android:label="Add Expense" />
 
     <fragment
-        android:id="@+id/budgetFragment"
+        android:id="@+id/BudgetFragment"
         android:name="com.example.prog7313_part2.BudgetFragment"
-        android:label="Budget" />
+        android:label="Budget">
+        <action
+            android:id="@+id/action_homeFragment_to_BudgetFragment"
+            app:destination="@+id/BudgetFragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/reportFragment"
+        android:id="@+id/Report_Fragment"
         android:name="com.example.prog7313_part2.Report_Fragment"
-        android:label="Reports" />
+        android:label="Reports" >
+        <action
+            android:id="@+id/action_homeFragment_to_ReportFragment"
+            app:destination="@+id/Report_Fragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/transactionsFragment"
+        android:id="@+id/TransactionsFragment"
         android:name="com.example.prog7313_part2.TransactionsFragment"
-        android:label="Transactions" />
+        android:label="Transactions">
+        <action
+            android:id="@+id/action_homeFragment_to_TransactionsFragment"
+            app:destination="@+id/TransactionsFragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/pieChartFragment"
+        android:id="@+id/PieChartFragment"
         android:name="com.example.prog7313_part2.PieChartFragment"
-        android:label="PieChart" />
+        android:label="PieChart">
+        <action
+            android:id="@+id/action_homeFragment_to_PieChartFragment"
+            app:destination="@+id/PieChartFragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/pointsPageFragment"
+        android:id="@+id/PointsPageFragment"
         android:name="com.example.prog7313_part2.PointsPageFragment"
-        android:label="Points Page" />
+        android:label="PointsPage">
+        <action
+            android:id="@+id/action_homeFragment_to_PointsPageFragment"
+            app:destination="@+id/PointsPageFragment"/>
+    </fragment>
 
     <fragment
-        android:id="@+id/profilePageFragment"
+        android:id="@+id/ProfilePageFragment"
         android:name="com.example.prog7313_part2.ProfilePageFragment"
-        android:label="Profile Page" />
+        android:label="ProfilePage">
+        <action
+            android:id="@+id/action_homeFragment_to_ProfilePageFragment"
+            app:destination="@+id/ProfilePageFragment"/>
+    </fragment>
 
 </navigation>
