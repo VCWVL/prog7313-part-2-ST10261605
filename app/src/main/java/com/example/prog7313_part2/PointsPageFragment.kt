@@ -23,7 +23,11 @@ class PointsPageFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_points_page, container, false)
 
-        //for displaying total points
+        //Initialize auth and db first
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        //Now can use to auth
         val pointsTextView = view.findViewById<TextView>(R.id.totalPoints)
         val userId = auth.currentUser?.uid
         if (userId != null) {
@@ -36,8 +40,6 @@ class PointsPageFragment : Fragment() {
 
         incomeEntriesProgress = view.findViewById(R.id.incomeEntriesProgress)
         categoriesProgress = view.findViewById(R.id.categoriesProgress)
-        db = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
 
         fetchIncomeAchievements()
         return view
