@@ -49,32 +49,32 @@ class HomeFragment : Fragment() {
 
         val budgetPage = view.findViewById<Button>(R.id.btnAddBudget)
         budgetPage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_budgetFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_BudgetFragment)
         }
 
         val transactionsPage = view.findViewById<Button>(R.id.btnViewTransactions)
         transactionsPage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_transactionsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_TransactionsFragment)
         }
 
         val chartsPage = view.findViewById<Button>(R.id.btnCharts)
         chartsPage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_pieChartFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_PieChartFragment)
         }
 
         val reportsPage = view.findViewById<Button>(R.id.btnReports)
         reportsPage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_reportFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_ReportFragment)
         }
 
         val pointsPage = view.findViewById<Button>(R.id.btnPoints)
         pointsPage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_pointsPageFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_PointsPageFragment)
         }
 
         val profilePage = view.findViewById<Button>(R.id.btnProfilePage)
         profilePage.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_profilePageFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_ProfilePageFragment)
         }
     }
 
