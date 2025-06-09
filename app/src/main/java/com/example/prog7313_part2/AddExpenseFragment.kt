@@ -164,6 +164,7 @@ class AddExpenseFragment : Fragment() {
         val expenseId = firestore.collection("expenses").document().id
 
         if (selectedFileUri != null) {
+
             //upload receipt first, then save data
             val storageRef = storage.reference.child("expense_receipts/${UUID.randomUUID()}")
             storageRef.putFile(selectedFileUri!!)
