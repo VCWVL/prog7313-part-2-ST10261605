@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addMoneyFragment"
             app:destination="@+id/addMoneyFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_addExpenseFragment"
+            app:destination="@+id/AddExpenseFragment"/>
     </fragment>
 
     <fragment
@@ -26,10 +29,46 @@
     <fragment
         android:id="@+id/BudgetFragment"
         android:name="com.example.prog7313_part2.BudgetFragment"
-        android:label="Budget" />
+        android:label="Budget">
+        <action
+            android:id="@+id/action_homeFragment_to_BudgetFragment"
+            app:destination="@+id/BudgetFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/Report_Fragment"
         android:name="com.example.prog7313_part2.Report_Fragment"
-        android:label="Reports" />
+        android:label="Reports" >
+        <action
+            android:id="@+id/action_homeFragment_to_ReportFragment"
+            app:destination="@+id/Report_Fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/TransactionsFragment"
+        android:name="com.example.prog7313_part2.TransactionsFragment"
+        android:label="Transactions">
+        <action
+            android:id="@+id/action_homeFragment_to_TransactionsFragment"
+            app:destination="@+id/TransactionsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/PieChartFragment"
+        android:name="com.example.prog7313_part2.PieChartFragment"
+        android:label="PieChart">
+        <action
+            android:id="@+id/action_homeFragment_to_PieChartFragment"
+            app:destination="@+id/PieChartFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfilePageFragment"
+        android:name="com.example.prog7313_part2.ProfilePageFragment"
+        android:label="ProfilePage">
+        <action
+            android:id="@+id/action_homeFragment_to_ProfilePageFragment"
+            app:destination="@+id/ProfilePageFragment"/>
+    </fragment>
+
 </navigation>

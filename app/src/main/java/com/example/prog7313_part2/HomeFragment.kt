@@ -37,18 +37,41 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val addMoney = view.findViewById<Button>(R.id.addMoney)
+        val addMoney = view.findViewById<Button>(R.id.btnAddIncome)
         addMoney.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addMoneyFragment)
         }
 
-        val addExpense = view.findViewById<Button>(R.id.addExpense)
+        val addExpense = view.findViewById<Button>(R.id.btnAddExpense)
         addExpense.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_addExpenseFragment)
         }
 
-        val transferMoney = view.findViewById<Button>(R.id.transferMoney)
-        transferMoney.setOnClickListener{
+        val budgetPage = view.findViewById<Button>(R.id.btnAddBudget)
+        budgetPage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_BudgetFragment)
         }
+
+        val transactionsPage = view.findViewById<Button>(R.id.btnViewTransactions)
+        transactionsPage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_TransactionsFragment)
+        }
+
+        val chartsPage = view.findViewById<Button>(R.id.btnCharts)
+        chartsPage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_PieChartFragment)
+        }
+
+        val reportsPage = view.findViewById<Button>(R.id.btnReports)
+        reportsPage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_ReportFragment)
+        }
+
+        val profilePage = view.findViewById<Button>(R.id.btnProfilePage)
+        profilePage.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_ProfilePageFragment)
+        }
+
     }
 
     companion object {
